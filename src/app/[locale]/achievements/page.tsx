@@ -3,6 +3,7 @@ import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
 import { buildAlternates } from "@/lib/utils";
 import { PageHero } from "@/components/ui/PageHero";
 import { AchievementsExplorer } from "@/components/achievements/AchievementsExplorer";
+import { ChampionshipRoute } from "@/components/coach/ChampionshipRoute";
 
 export async function generateMetadata({
   params,
@@ -42,6 +43,7 @@ export default async function AchievementsPage({
         title={locale === "ar" ? "لحظات من البطولات" : locale === "tr" ? "Turnuvalardan Anlar" : "Moments from the Tournaments"}
       />
 
+      <ChampionshipRoute locale={locale} showIntro={false} showPhotos={false} />
       <AchievementsExplorer locale={locale} />
     </>
   );

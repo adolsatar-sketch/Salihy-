@@ -24,7 +24,7 @@ export function ChampionsChapter({ locale }: { locale: Locale }) {
   return (
     <section className="relative bg-charcoal/92 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
-        <SectionLabel number="08" title={locale === "ar" ? "الأبطال" : locale === "tr" ? "ŞAMPİYONLAR" : "CHAMPIONS"} />
+        <SectionLabel number="09" title={locale === "ar" ? "الأبطال" : locale === "tr" ? "ŞAMPİYONLAR" : "CHAMPIONS"} />
         <Reveal className="mt-6 max-w-xl">
           <h2 className="font-heading text-balance text-3xl leading-tight text-bone sm:text-4xl md:text-5xl">
             {locale === "ar" ? "جيل جديد يصعد المنصة" : locale === "tr" ? "Podyuma çıkan yeni bir nesil" : "A new generation takes the podium"}

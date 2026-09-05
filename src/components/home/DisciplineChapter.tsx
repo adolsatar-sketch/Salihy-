@@ -27,7 +27,7 @@ export function DisciplineChapter({ locale }: { locale: Locale }) {
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center sm:px-10">
         <Reveal>
           <p className="font-heading text-xs tracking-[0.4em] text-steel">
-            {locale === "ar" ? "07 — الانضباط" : locale === "tr" ? "07 — DİSİPLİN" : "07 — DISCIPLINE"}
+            {locale === "ar" ? "08 — الانضباط" : locale === "tr" ? "08 — DİSİPLİN" : "08 — DISCIPLINE"}
           </p>
           <h2 className="font-heading text-balance mt-6 text-3xl leading-snug text-bone sm:text-4xl md:text-5xl">
             {locale === "ar" ? (

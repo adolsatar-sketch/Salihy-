@@ -7,6 +7,7 @@ import { FighterChapter } from "@/components/home/FighterChapter";
 import { AchievementsChapter } from "@/components/home/AchievementsChapter";
 import { CoachTransitionChapter } from "@/components/home/CoachTransitionChapter";
 import { AcademyChapter } from "@/components/home/AcademyChapter";
+import { StudyChapter } from "@/components/home/StudyChapter";
 import { ProgramsChapter } from "@/components/home/ProgramsChapter";
 import { BrandDivider } from "@/components/ui/BrandDivider";
 import { DisciplineChapter } from "@/components/home/DisciplineChapter";
@@ -58,6 +59,7 @@ export default async function HomePage({
       <AchievementsChapter locale={locale} />
       <CoachTransitionChapter locale={locale} />
       <AcademyChapter locale={locale} />
+      <StudyChapter locale={locale} />
       <ProgramsChapter locale={locale} />
       <BrandDivider />
       <DisciplineChapter locale={locale} />

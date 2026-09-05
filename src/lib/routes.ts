@@ -33,7 +33,7 @@ export const programRoutes: RouteEntry[] = [
   { path: "programs/adults", number: "05.3", label: { ar: "البالغون", en: "Adults", tr: "Yetişkinler" }, preview: "/assets/gallery/gallery-03.jpg" },
   { path: "programs/women", number: "05.4", label: { ar: "النساء", en: "Women", tr: "Kadınlar" }, preview: "/assets/gallery/gallery-01.jpg" },
   { path: "programs/competition-team", number: "05.5", label: { ar: "فريق البطولات", en: "Competition Team", tr: "Müsabaka Takımı" }, preview: "/assets/gallery/gallery-08.jpg" },
-  { path: "programs/study-sport", number: "05.6", label: { ar: "الدراسة والرياضة", en: "Study & Sport", tr: "Eğitim ve Spor" }, preview: "/assets/gallery/gallery-09.jpg" },
+  { path: "programs/study-sport", number: "05.6", label: { ar: "الدراسة والتدريب", en: "Study & Training", tr: "Eğitim ve Antrenman" }, preview: "/assets/gallery/gallery-09.jpg" },
   { path: "programs/training-system", number: "05.7", label: { ar: "نظام التدريب", en: "Training System", tr: "Antrenman Sistemi" }, preview: "/assets/gallery/gallery-10.jpg" },
   { path: "programs/belt-journey", number: "05.8", label: { ar: "رحلة الأحزمة", en: "Belt Journey", tr: "Kuşak Yolculuğu" }, preview: "/assets/gallery/gallery-01.jpg" },
 ];

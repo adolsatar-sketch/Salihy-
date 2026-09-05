@@ -141,8 +141,8 @@ export const programs: Program[] = [
   },
   {
     slug: "study-sport",
-    title: { ar: "برنامج الدراسة والرياضة", en: "Study & Sport Program", tr: "Eğitim ve Spor Programı" },
-    shortTitle: { ar: "الدراسة والرياضة", en: "Study & Sport", tr: "Eğitim ve Spor" },
+    title: { ar: "برنامج الدراسة والتدريب", en: "Study & Training Program", tr: "Eğitim ve Antrenman Programı" },
+    shortTitle: { ar: "الدراسة والتدريب", en: "Study & Training", tr: "Eğitim ve Antrenman" },
     heroImage: "/assets/gallery/gallery-09.jpg",
     heroImageAlt: {
       ar: "لاعبان شابان يتدربان على الانضباط والتركيز الحركي",
@@ -150,15 +150,32 @@ export const programs: Program[] = [
       tr: "Disiplin ve odaklanmış hareket üzerine antrenman yapan iki genç sporcu",
     },
     summary: {
-      ar: "دراسة أفضل… وشخصية أقوى. نظام يجمع بين التحصيل الدراسي والتدريب القتالي وإدارة الوقت.",
-      en: "Better studying, a stronger character. A system combining academic performance, combat training, and time management.",
-      tr: "Daha iyi ders çalışma, daha güçlü bir karakter. Akademik başarıyı, mücadele antrenmanını ve zaman yönetimini birleştiren bir sistem.",
+      ar: "لا يحتاج المشترك أن يختار بين دراسته وتدريبه. مساران يتقدّمان معًا.",
+      en: "Members don't have to choose between their education and their training. Two paths, moving forward together.",
+      tr: "Öğrenciler eğitimleri ile antrenmanları arasında seçim yapmak zorunda kalmaz. İki yol, birlikte ilerler.",
     },
     audience: {
-      ar: "للطلاب الذين يريدون تحسين تركيزهم وانضباطهم الدراسي عبر منهج رياضي قتالي منظّم.",
-      en: "For students who want to improve their focus and academic discipline through a structured combat-sport method.",
-      tr: "Yapılandırılmış bir mücadele sporu yöntemiyle odaklanmasını ve akademik disiplinini geliştirmek isteyen öğrenciler için.",
+      ar: "لطلبة المرحلة الابتدائية من الصف الأول إلى الصف السادس، لمتابعة وإكمال الدراسة المدرسية بالتوازي مع تدريب الكيوكوشنكاي.",
+      en: "For primary school students from Grade 1 through Grade 6, to follow and complete their schoolwork alongside Kyokushin training.",
+      tr: "1. sınıftan 6. sınıfa kadar ilkokul öğrencileri için; okul çalışmalarını Kyokushin antrenmanıyla birlikte takip edip tamamlamak amacıyla.",
     },
+    goals: [
+      {
+        ar: "الدراسة — متابعة وإكمال الدراسة المطلوبة من المدرسة.",
+        en: "Study — Following and completing school studies.",
+        tr: "Eğitim — Okul çalışmalarını takip etmek ve tamamlamak.",
+      },
+      {
+        ar: "التدريب — مواصلة تدريب الكيوكوشنكاي داخل الأكاديمية.",
+        en: "Training — Continuing Kyokushinkai training at the academy.",
+        tr: "Antrenman — Akademide Kyokushinkai antrenmanlarına devam etmek.",
+      },
+      {
+        ar: "التوازن — الجمع بين الالتزام الدراسي والانضباط الرياضي في مكان واحد.",
+        en: "Balance — Bringing academic commitment and athletic discipline together.",
+        tr: "Denge — Eğitim sorumluluğunu ve sportif disiplini bir araya getirmek.",
+      },
+    ],
   },
   {
     slug: "training-system",
