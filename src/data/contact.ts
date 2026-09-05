@@ -20,24 +20,11 @@ export type ScheduleDay = {
   hours: Bi;
 };
 
-// Training days as referenced on the academy's Instagram account.
-// Exact per-program class times are placeholders — adjust freely per program once confirmed.
-export const trainingDays: ScheduleDay[] = [
-  {
-    day: { ar: "السبت", en: "Saturday" },
-    hours: { ar: "2:00 – 10:00 مساءً", en: "2:00 PM – 10:00 PM" },
-  },
-  {
-    day: { ar: "الاثنين", en: "Monday" },
-    hours: { ar: "2:00 – 10:00 مساءً", en: "2:00 PM – 10:00 PM" },
-  },
-  {
-    day: { ar: "الأربعاء", en: "Wednesday" },
-    hours: { ar: "2:00 – 10:00 مساءً", en: "2:00 PM – 10:00 PM" },
-  },
-];
+// Empty until the academy confirms real training days and hours. See
+// CONTENT_NEEDED.md.
+export const trainingDays: ScheduleDay[] = [];
 
 export const generalNote: Bi = {
-  ar: "الجدول أعلاه يمثل أيام تواجد الأكاديمية العامة. مواعيد كل فئة عمرية أو برنامج ضمن هذا النطاق تُحدَّد مع المدرب عند التسجيل.",
-  en: "The schedule above reflects the academy's general operating days. Exact class times per age group or program are confirmed with the coach upon registration.",
+  ar: "مواعيد كل فئة عمرية أو برنامج تُحدَّد مع المدرب عند التسجيل.",
+  en: "Exact class times per age group or program are confirmed with the coach upon registration.",
 };

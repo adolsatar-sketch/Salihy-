@@ -63,7 +63,7 @@ export function Lightbox({
         onClick={onClose}
       >
         <div className="flex items-center justify-between px-5 py-4 text-xs text-steel sm:px-8">
-          <span dir="ltr">
+          <span>
             {index + 1} / {items.length}
           </span>
           <button
@@ -98,14 +98,13 @@ export function Lightbox({
             touchStart.current = null;
           }}
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence mode="wait">
             <motion.div
               key={item.id}
-              layoutId={`gallery-${item.id}`}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ layout: { duration: 0.45, ease: [0.22, 1, 0.36, 1] }, opacity: { duration: 0.25 } }}
+              transition={{ duration: 0.25 }}
               className="relative mx-auto h-full max-w-5xl"
             >
               <button

@@ -38,7 +38,7 @@ export default async function NewsDetailPage({
   if (!post) notFound();
 
   return (
-    <article className="relative bg-obsidian pb-24 pt-40">
+    <article className="relative bg-obsidian/92 pb-24 pt-40">
       <div className="mx-auto max-w-3xl px-6 sm:px-10">
         <Reveal>
           <p className="text-xs tracking-wide text-steel">{post.date}</p>

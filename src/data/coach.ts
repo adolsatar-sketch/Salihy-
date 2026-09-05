@@ -1,7 +1,10 @@
 import type { Bi } from "@/lib/utils";
 
-// Personal details left undefined until confirmed — never rendered as a
-// bracketed placeholder. Fill them in here once the academy confirms them.
+// Every field below is optional/empty on purpose: none of this has been
+// confirmed by the academy owner yet, so the page must render correctly
+// with all of it missing. Never fill a field with a bracket placeholder
+// like "[السنة]" or invented copy — leave it absent and let the page hide
+// it. See CONTENT_NEEDED.md for the list of what to ask the owner for.
 export const coachProfile: {
   fullName?: Bi;
   rankAndBelt?: Bi;
@@ -13,13 +16,12 @@ export const coachProfile: {
   portraitAlt: {
     ar: "مدرب أكاديمية صالحي يقف بزي الكيوكوشنكاي إلى جانب أحد اللاعبين حاملًا كأس بطولة",
     en: "Salihy Academy coach standing in Kyokushin gi beside an athlete holding a tournament trophy",
-  } as Bi,
+  },
 };
 
-export const bioIntro: Bi = {
-  ar: "قبل أن يرتدي عباءة المدرب، كان صالحي مقاتلًا في الحلبة نفسها التي يدرّب فيها اليوم أبناءه من اللاعبين. مسيرته لم تبدأ من مكتب، بل من الأرض، من التمارين المتكررة، ومن سنوات النزال التي شكّلت فهمه العميق لما يعنيه أن تصنع بطلًا.",
-  en: "Before he ever wore a coach's mantle, Salihy was a fighter on the very mat where he now trains the next generation. His story didn't start behind a desk — it started on the ground, in repetition, and in years of competition that shaped a deep understanding of what it truly takes to build a champion.",
-};
+// No real first-person quote has been provided — stays undefined until the
+// academy supplies real words, never a placeholder or invented sentence.
+export const philosophy: Bi | undefined = undefined;
 
 export type CareerMilestone = {
   year?: string;
@@ -28,53 +30,11 @@ export type CareerMilestone = {
   image?: string;
 };
 
-export const careerTimeline: CareerMilestone[] = [
-  {
-    title: { ar: "البداية في الكيوكوشنكاي", en: "The Beginning in Kyokushin" },
-    description: {
-      ar: "أولى الخطوات داخل القاعة، حيث بدأ التمرين اليومي والانضباط يشكلان أساس المسيرة.",
-      en: "The first steps inside the dojo, where daily training and discipline began forming the foundation of the journey.",
-    },
-    image: "/assets/gallery/gallery-04.jpg",
-  },
-  {
-    title: { ar: "أول بطولة", en: "First Tournament" },
-    description: {
-      ar: "أول اختبار حقيقي على الحلبة، وأول درس في ضغط المنافسة واتخاذ القرار في اللحظة.",
-      en: "The first real test on the mat — and the first lesson in competitive pressure and split-second decisions.",
-    },
-  },
-  {
-    title: { ar: "مشاركات دولية", en: "International Participation" },
-    description: {
-      ar: "تمثيل العراق خارج الحدود، ومواجهة مستويات ومدارس قتالية مختلفة صقلت الأسلوب والخبرة.",
-      en: "Representing Iraq abroad, facing different schools and styles that refined both technique and experience.",
-    },
-    image: "/assets/gallery/gallery-05.jpg",
-  },
-  {
-    title: { ar: "الانتقال من لاعب إلى مدرب", en: "From Fighter to Coach" },
-    description: {
-      ar: "قرار تحويل سنوات الخبرة إلى منهج تدريبي، ونقل ما تعلّمه على الحلبة إلى جيل جديد من اللاعبين.",
-      en: "The decision to turn years of experience into a training method — passing on everything learned on the mat to a new generation of athletes.",
-    },
-    image: "/assets/gallery/gallery-06.jpg",
-  },
-  {
-    title: { ar: "تأسيس أكاديمية صالحي", en: "Founding Salihy Academy" },
-    description: {
-      ar: "ولادة مساحة تدريب متكاملة تحمل فلسفة واضحة: الانضباط أولًا، ثم البطولة.",
-      en: "The birth of a complete training space built on one clear philosophy: discipline first, championship after.",
-    },
-  },
-];
+// Empty until the academy confirms real milestones (dates, tournaments,
+// the founding story). No entry here has ever been provided by the owner,
+// so nothing is invented to fill the shape — the Legacy page must hide
+// this section entirely when the array is empty.
+export const careerTimeline: CareerMilestone[] = [];
 
-export const philosophy: Bi = {
-  ar: "أؤمن أن الحزام الأسود ليس نهاية الطريق، بل بداية القدرة على تعليم الآخرين. أبني لاعبيّ على ثلاث ركائز: الانضباط، الاحترام، والاستمرارية. الميداليات تأتي كنتيجة طبيعية حين تُبنى هذه الركائز أولًا.",
-  en: "I believe the black belt isn't the end of the road — it's the beginning of the ability to teach others. I build my athletes on three pillars: discipline, respect and consistency. Medals arrive naturally once those pillars are in place first.",
-};
-
-export const vision: Bi = {
-  ar: "رؤيتي لأكاديمية صالحي هي أن تكون بيتًا لصناعة الأبطال بمعناها الحقيقي: أبطال داخل الحلبة وخارجها، في حياتهم الدراسية والشخصية، وفي المجتمع من حولهم.",
-  en: "My vision for Salihy Academy is to be a home for building champions in the truest sense — champions on the mat and off it, in their studies, their character, and the community around them.",
-};
+// No real vision statement has been provided yet — undefined, not invented.
+export const vision: Bi | undefined = undefined;

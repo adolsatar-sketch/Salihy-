@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
-import { buildAlternates, t } from "@/lib/utils";
+import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ButtonLink } from "@/components/ui/Button";
-import { localePath } from "@/lib/utils";
-import { coachProfile, bioIntro, philosophy, vision } from "@/data/coach";
+import { t, localePath, buildAlternates } from "@/lib/utils";
+import { coachProfile, philosophy, vision } from "@/data/coach";
 
 export async function generateMetadata({
   params,
@@ -15,14 +15,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title =
-    locale === "ar"
-      ? "المدرب — من مقاتل إلى صانع أبطال | أكاديمية صالحي"
-      : "The Coach — From Fighter to Champion-Maker | Salihy Academy";
+  const title = locale === "ar" ? "المدرب | أكاديمية صالحي" : "The Coach | Salihy Academy";
   const description =
     locale === "ar"
-      ? "قصة مدرب أكاديمية صالحي: بداياته في الكيوكوشنكاي، مسيرته كمقاتل، وانتقاله لصناعة جيل جديد من الأبطال."
-      : "The story of Salihy Academy's coach: his beginnings in Kyokushin, his fighting career, and his transition to building a new generation of champions.";
+      ? "المدرب الذي يقود أكاديمية صالحي للكيوكوشنكاي في بغداد."
+      : "The coach leading Salihy Kyokushin Academy in Baghdad.";
   return {
     title,
     description,
@@ -46,64 +43,54 @@ export default async function CoachPage({
 
   return (
     <>
-      <section className="relative flex min-h-[92dvh] items-end overflow-hidden bg-obsidian">
-        <div className="absolute inset-0">
-          <Image
-            src={coachProfile.portrait}
-            alt={t(locale, coachProfile.portraitAlt)}
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover object-[50%_15%]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/55 to-obsidian/10" />
-        </div>
+      <PageHero
+        number="01"
+        eyebrow={locale === "ar" ? "المدرب" : "THE COACH"}
+        title={heading}
+        subtitle={subline.join(" · ") || undefined}
+      />
 
-        <div className="relative z-10 mx-auto w-full max-w-3xl px-6 pb-20 pt-40 sm:px-10">
-          <SectionLabel number="01" title={locale === "ar" ? "المدرب" : "THE COACH"} className="mb-6" />
-          <Reveal>
-            <h1 className="font-heading text-balance text-4xl text-bone xs:text-5xl sm:text-6xl">{heading}</h1>
-          </Reveal>
-          {subline.length > 0 && (
-            <Reveal delay={0.08}>
-              <p className="mt-4 text-sm tracking-wide text-steel sm:text-base">{subline.join(" · ")}</p>
-            </Reveal>
-          )}
-        </div>
-      </section>
-
-      <section className="relative bg-charcoal py-24 sm:py-32">
-        <div className="mx-auto max-w-2xl px-6 sm:px-10">
-          <Reveal>
-            <p className="text-balance text-lg leading-relaxed text-bone sm:text-xl">{t(locale, bioIntro)}</p>
+      {/* Real, documentary photography — the coach in the hall, never a
+          staged studio shot, and never inside the Hero itself. */}
+      <section className="relative bg-obsidian/92 py-16 sm:py-24">
+        <div className="mx-auto max-w-4xl px-6 sm:px-10">
+          <Reveal className="relative aspect-[4/3] overflow-hidden sm:aspect-[16/9]">
+            <Image
+              src={coachProfile.portrait}
+              alt={t(locale, coachProfile.portraitAlt)}
+              fill
+              sizes="(min-width: 640px) 900px, 100vw"
+              className="object-cover"
+            />
           </Reveal>
         </div>
       </section>
 
-      <section className="relative bg-obsidian py-24 sm:py-32">
-        <div className="mx-auto grid max-w-4xl gap-16 px-6 sm:px-10 md:grid-cols-2">
-          <Reveal>
-            <SectionLabel number="—" title={locale === "ar" ? "فلسفة التدريب" : "TRAINING PHILOSOPHY"} />
-            <p className="mt-6 text-balance text-xl leading-relaxed text-bone sm:text-2xl">{t(locale, philosophy)}</p>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <SectionLabel number="—" title={locale === "ar" ? "الرؤية" : "VISION"} />
-            <p className="mt-6 text-balance text-xl leading-relaxed text-bone sm:text-2xl">{t(locale, vision)}</p>
-          </Reveal>
-        </div>
-      </section>
+      {(philosophy || vision) && (
+        <section className="relative bg-obsidian/92 py-24 sm:py-32">
+          <div className="mx-auto grid max-w-5xl gap-12 px-6 sm:px-10 md:grid-cols-2">
+            {philosophy && (
+              <Reveal>
+                <SectionLabel number="—" title={locale === "ar" ? "فلسفة التدريب" : "TRAINING PHILOSOPHY"} />
+                <p className="mt-6 text-balance text-xl leading-relaxed text-bone sm:text-2xl">{t(locale, philosophy)}</p>
+              </Reveal>
+            )}
+            {vision && (
+              <Reveal delay={0.1}>
+                <SectionLabel number="—" title={locale === "ar" ? "الرؤية" : "VISION"} />
+                <p className="mt-6 text-balance text-xl leading-relaxed text-bone sm:text-2xl">{t(locale, vision)}</p>
+              </Reveal>
+            )}
+          </div>
+        </section>
+      )}
 
-      <section className="relative bg-charcoal py-24 text-center sm:py-32">
+      <section className="relative bg-obsidian/92 py-24 text-center sm:py-32">
         <div className="mx-auto max-w-xl px-6 sm:px-10">
           <Reveal>
             <h2 className="font-heading text-balance text-3xl text-bone sm:text-4xl">
               {locale === "ar" ? "تتبّع المسيرة كاملة" : "Follow the Full Journey"}
             </h2>
-            <p className="mt-4 text-sm leading-relaxed text-steel sm:text-base">
-              {locale === "ar"
-                ? "من أول يوم تدريب إلى تأسيس الأكاديمية — رحلة كاملة موثّقة خطوة بخطوة."
-                : "From the first day of training to founding the academy — a full journey, documented step by step."}
-            </p>
             <div className="mt-8 flex justify-center">
               <ButtonLink href={localePath(locale, "/legacy")} variant="primary">
                 {locale === "ar" ? "المسيرة" : "The Legacy"}

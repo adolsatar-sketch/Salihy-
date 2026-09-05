@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
-import { Reveal } from "@/components/ui/Reveal";
+import { PageHero } from "@/components/ui/PageHero";
 import { faqItems } from "@/data/faq";
 import { t, buildAlternates } from "@/lib/utils";
 import { FaqAccordion } from "@/components/faq/FaqAccordion";
@@ -49,18 +49,9 @@ export default async function FaqPage({
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <section className="relative bg-obsidian pb-4 pt-40">
-        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
-          <Reveal>
-            <p className="font-heading text-xs tracking-[0.4em] text-steel">10 — FAQ</p>
-            <h1 className="font-heading text-balance mt-6 text-4xl text-bone sm:text-5xl md:text-6xl">
-              {locale === "ar" ? "الأسئلة الشائعة" : "Frequently Asked Questions"}
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero number="10" eyebrow="FAQ" title={locale === "ar" ? "الأسئلة الشائعة" : "Frequently Asked Questions"} />
 
-      <section className="relative bg-obsidian py-16 sm:py-24">
+      <section className="relative bg-obsidian/92 py-16 sm:py-24">
         <div className="mx-auto max-w-3xl px-6 sm:px-10">
           <FaqAccordion locale={locale} />
         </div>

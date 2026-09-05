@@ -22,6 +22,10 @@ export type GalleryItem = {
 
 // Real, unedited academy photography. Nothing here is stock imagery or
 // AI-generated — every entry maps to a file under /public/assets/gallery.
+// Captions stay strictly neutral/documentary: no tournament name,
+// placement, year, or player identity is ever read off a photo (a
+// banner, a medal color, a "1" on a podium block) — only the alt text
+// describes what is visibly in frame, for accessibility.
 export const galleryItems: GalleryItem[] = [
   {
     id: "gallery-04",
@@ -29,7 +33,7 @@ export const galleryItems: GalleryItem[] = [
     width: 853,
     height: 1280,
     categories: ["legacy", "training", "fights"],
-    caption: { ar: "من الأرشيف — سنوات التمرين الأولى", en: "From the archive — the early training years" },
+    caption: { ar: "من الأرشيف", en: "From the archive" },
     alt: {
       ar: "صورة أرشيفية قديمة للاعبين يتدربان على القتال داخل صالة رياضية، أحدهما يرتدي حزامًا أخضر",
       en: "Archival photo of two athletes sparring in a gym, one wearing a green belt",
@@ -41,7 +45,7 @@ export const galleryItems: GalleryItem[] = [
     width: 1500,
     height: 2249,
     categories: ["fights", "training"],
-    caption: { ar: "ركلة رأس في التدريب الحر", en: "A head-height kick in free sparring" },
+    caption: { ar: "لحظة من التدريب الحر", en: "A moment from free sparring" },
     alt: {
       ar: "لاعب كيوكوشنكاي ينفذ ركلة عالية باتجاه رأس شريكه داخل صالة تدريب",
       en: "A Kyokushin fighter executing a high kick toward his sparring partner's head inside the training hall",
@@ -53,7 +57,7 @@ export const galleryItems: GalleryItem[] = [
     width: 853,
     height: 1280,
     categories: ["fights", "tournaments"],
-    caption: { ar: "ركلة أمامية أمام الجمهور", en: "A front kick in front of the crowd" },
+    caption: { ar: "لحظة من إحدى المباريات", en: "A moment from a match" },
     alt: {
       ar: "لاعب ينفذ ركلة أمامية قوية داخل صالة بطولة أمام جمهور من المتفرجين",
       en: "An athlete delivering a powerful front kick inside a tournament hall in front of spectators",
@@ -65,13 +69,10 @@ export const galleryItems: GalleryItem[] = [
     width: 750,
     height: 750,
     categories: ["tournaments", "trophies"],
-    caption: {
-      ar: "منصة التتويج — البطولة الدولية الأولى للزعفران للكيوكوشنكاي، تركيا",
-      en: "The podium — 1st International Saffron Kyokushin Championship, Turkey",
-    },
+    caption: { ar: "لحظة على منصة التتويج", en: "A moment on the podium" },
     alt: {
       ar: "لاعب يرفع كأس البطولة على منصة التتويج ملتفًا بعلم العراق، وبجانبه لاعبون آخرون يحملون العلم العراقي وعلم تركيا",
-      en: "An athlete raising the championship trophy on the podium wrapped in the Iraqi flag, alongside other athletes holding the Iraqi and Turkish flags",
+      en: "An athlete raising a championship trophy on the podium wrapped in the Iraqi flag, alongside other athletes holding the Iraqi and Turkish flags",
     },
   },
   {
@@ -80,7 +81,7 @@ export const galleryItems: GalleryItem[] = [
     width: 2000,
     height: 1500,
     categories: ["tournaments", "trophies", "students"],
-    caption: { ar: "منصة التتويج — بطولة بودوكايدو، تركيا", en: "The podium — Budokaido Championship, Turkey" },
+    caption: { ar: "لحظة على منصة التتويج", en: "A moment on the podium" },
     alt: {
       ar: "أربعة لاعبين من بينهم طفل يقفون على منصة التتويج حاملين كؤوسًا وميداليات أمام العلم التركي",
       en: "Four athletes, including a child, standing on the podium holding trophies and medals in front of the Turkish flag",
@@ -92,10 +93,10 @@ export const galleryItems: GalleryItem[] = [
     width: 1512,
     height: 2016,
     categories: ["tournaments", "trophies", "students"],
-    caption: { ar: "المركز الثاني — بطولة محلية", en: "Second place — local championship" },
+    caption: { ar: "لحظة من إحدى البطولات", en: "A moment from a tournament" },
     alt: {
-      ar: "لاعبان بزي الكيوكوشنكاي الأبيض يحملان كأس المركز الثاني والميداليات ويبتسمان",
-      en: "Two athletes in white Kyokushin gi holding second-place trophies and medals, smiling",
+      ar: "لاعبان بزي الكيوكوشنكاي الأبيض يحملان كؤوسًا وميداليات ويبتسمان",
+      en: "Two athletes in white Kyokushin gi holding trophies and medals, smiling",
     },
   },
   {
@@ -104,10 +105,10 @@ export const galleryItems: GalleryItem[] = [
     width: 2000,
     height: 1500,
     categories: ["tournaments", "trophies", "students"],
-    caption: { ar: "فريق الأكاديمية بكؤوس المراكز الأربعة الأولى", en: "The academy team with four podium trophies" },
+    caption: { ar: "فريق الأكاديمية مع كؤوس البطولة", en: "The academy team with tournament trophies" },
     alt: {
-      ar: "أربعة لاعبين يقفون بجانب بعضهم حاملين ميداليات، وأمامهم أربع كؤوس تحمل تسميات المراكز الأول حتى الرابع",
-      en: "Four athletes standing together wearing medals, with four trophies labeled first through fourth place in front of them",
+      ar: "أربعة لاعبين يقفون بجانب بعضهم حاملين ميداليات، وأمامهم أربع كؤوس بطولة",
+      en: "Four athletes standing together wearing medals, with four tournament trophies in front of them",
     },
   },
   {
@@ -116,10 +117,10 @@ export const galleryItems: GalleryItem[] = [
     width: 1125,
     height: 1500,
     categories: ["academy", "behind"],
-    caption: { ar: "لحظة تركيز قبل الإعلان عن النتيجة", en: "A focused moment before the result is announced" },
+    caption: { ar: "لحظة تركيز داخل الصالة", en: "A focused moment inside the hall" },
     alt: {
-      ar: "لاعب راكع على الأرض بزي أبيض وحزام أسود بانتظار الإعلان عن نتيجة المباراة داخل الصالة",
-      en: "An athlete kneeling on the mat in a white gi and black belt, waiting for the match result to be announced",
+      ar: "لاعب راكع على الأرض بزي أبيض وحزام أسود داخل الصالة",
+      en: "An athlete kneeling on the mat in a white gi and black belt inside the hall",
     },
   },
   {
@@ -128,7 +129,7 @@ export const galleryItems: GalleryItem[] = [
     width: 1512,
     height: 2016,
     categories: ["behind", "students"],
-    caption: { ar: "المدرب مع أحد اللاعبين بعد التتويج", en: "The coach with an athlete after the podium" },
+    caption: { ar: "المدرب مع أحد اللاعبين", en: "The coach with an athlete" },
     alt: {
       ar: "مدرب يقف بجانب لاعب يرتدي زي الكيوكوشنكاي ويحمل كأس بطولة",
       en: "A coach standing beside an athlete wearing a Kyokushin gi and holding a championship trophy",
