@@ -95,12 +95,14 @@ export function ProgramTemplate({ program, locale }: { program: Program; locale:
                 <div key={t(locale, belt.name)} className="flex items-center gap-4">
                   <div className="text-center">
                     <span
-                      className="mx-auto block h-8 w-16 rounded-sm border border-bone/20"
+                      className="mx-auto block h-8 w-16 rounded-sm border border-bone/40 shadow-[0_0_0_1px_rgba(0,0,0,0.4)]"
                       style={{ backgroundColor: belt.colorHex }}
                     />
                     <p className="mt-2 max-w-[6rem] text-[11px] leading-tight text-steel">{t(locale, belt.name)}</p>
                   </div>
-                  {i < beltRanks.length - 1 && <span className="text-steel/40">→</span>}
+                  {i < beltRanks.length - 1 && (
+                    <span className="text-steel/40">{locale === "ar" ? "←" : "→"}</span>
+                  )}
                 </div>
               ))}
             </div>
