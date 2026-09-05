@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-obsidian: #050505;
+  --color-charcoal: #111111;
+  --color-blood: #8f0b17;
+  --color-active: #b20f20;
+  --color-bone: #f2efe8;
+  --color-steel: #9a9a9a;
+  --color-gold: #c5a253;
+
+  --font-heading-ar: var(--font-alexandria);
+  --font-body-ar: var(--font-ibm-plex-arabic);
+  --font-heading-en: var(--font-oswald);
+  --font-body-en: var(--font-inter);
+
+  --breakpoint-xs: 22.5rem;
+}
+
+:root {
+  color-scheme: dark;
+  --bg: #050505;
+  --fg: #f2efe8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
+  min-height: 100dvh;
+}
+
+html[lang="ar"] body {
+  font-family: var(--font-body-ar), "IBM Plex Sans Arabic", sans-serif;
+}
+
+html[lang="en"] body {
+  font-family: var(--font-body-en), "Inter", sans-serif;
+}
+
+.font-heading {
+  font-family: var(--font-heading-en), "Oswald", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+html[lang="ar"] .font-heading {
+  font-family: var(--font-heading-ar), "Alexandria", sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+#site-content {
+  opacity: 1;
+}
+
+html[data-intro="pending"] #site-content {
+  opacity: 0;
+}
+
+html[data-intro="done"] #site-content {
+  opacity: 1;
+  transition: opacity 0.5s ease 0.05s;
+}
+
+::selection {
+  background: var(--color-active);
+  color: var(--color-bone);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Film grain layer, GPU-cheap: a single tiled SVG noise texture animated by
+   opacity only (never blur/filter) so it stays light on Android GPUs. */
+.grain-layer {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Custom cursor — desktop / fine-pointer only */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 22px;
+  margin-top: -11px;
+  margin-left: -11px;
+  border: 1.5px solid var(--color-active);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 100;
+  transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
+  will-change: transform;
+}
+
+@media (pointer: coarse) {
+  .custom-cursor {
+    display: none;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.4);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.click-pulse {
+  position: fixed;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1.5px solid var(--color-active);
+  pointer-events: none;
+  z-index: 99;
+  animation: pulse-ring 0.5s ease-out forwards;
+}
