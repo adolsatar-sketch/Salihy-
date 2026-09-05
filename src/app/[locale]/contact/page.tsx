@@ -7,7 +7,7 @@ import { ExternalButtonLink } from "@/components/ui/Button";
 import { t, buildAlternates } from "@/lib/utils";
 import { address, mapEmbedSrc, mapLinkSrc, trainingDays, generalNote } from "@/data/contact";
 import { weeklySlots, scheduleNote } from "@/data/schedule";
-import { INSTAGRAM_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
+import { INSTAGRAM_URL, WAZE_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata({
@@ -66,6 +66,14 @@ export default async function ContactPage({
           <Reveal className="min-w-0">
             <SectionLabel number="—" title={dict.common.addressLabel} />
             <p className="mt-4 text-xl text-bone">{t(locale, address)}</p>
+            <a
+              href={WAZE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-block text-xs text-steel underline-offset-4 hover:text-bone hover:underline"
+            >
+              {dict.common.openInWaze}
+            </a>
 
             {trainingDays.length > 0 && (
               <>

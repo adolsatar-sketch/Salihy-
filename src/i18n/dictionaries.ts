@@ -60,6 +60,7 @@ export type Dictionary = {
     addressLabel: string;
     hoursLabel: string;
     scheduleLabel: string;
+    openInWaze: string;
     sendWhatsapp: string;
     formSuccessTitle: string;
     formSuccessBody: string;
@@ -107,7 +108,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     common: {
       exploreJourney: "اكتشف الرحلة",
-      bookTrial: "احجز حصة تجريبية",
+      bookTrial: "احجز مكانك",
       whatsappContact: "تواصل عبر واتساب",
       readMore: "اقرأ المزيد",
       viewAll: "عرض الكل",
@@ -136,6 +137,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       addressLabel: "العنوان",
       hoursLabel: "أوقات التواجد",
       scheduleLabel: "جدول التدريب",
+      openInWaze: "افتح الموقع على Waze",
       sendWhatsapp: "إرسال عبر واتساب",
       formSuccessTitle: "تم استلام طلبك",
       formSuccessBody:
@@ -182,7 +184,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     common: {
       exploreJourney: "Explore the Journey",
-      bookTrial: "Book a Trial Class",
+      bookTrial: "Reserve Your Spot",
       whatsappContact: "Contact via WhatsApp",
       readMore: "Read More",
       viewAll: "View All",
@@ -211,6 +213,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       addressLabel: "Address",
       hoursLabel: "Hours",
       scheduleLabel: "Training Schedule",
+      openInWaze: "Open in Waze",
       sendWhatsapp: "Send via WhatsApp",
       formSuccessTitle: "Your request is ready",
       formSuccessBody:
@@ -257,7 +260,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     common: {
       exploreJourney: "Yolculuğu Keşfet",
-      bookTrial: "Deneme Dersi Al",
+      bookTrial: "Yerini Ayırt",
       whatsappContact: "WhatsApp'tan İletişime Geç",
       readMore: "Devamını Oku",
       viewAll: "Tümünü Gör",
@@ -286,6 +289,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       addressLabel: "Adres",
       hoursLabel: "Çalışma Saatleri",
       scheduleLabel: "Antrenman Programı",
+      openInWaze: "Waze'de Aç",
       sendWhatsapp: "WhatsApp ile Gönder",
       formSuccessTitle: "Talebiniz hazır",
       formSuccessBody:

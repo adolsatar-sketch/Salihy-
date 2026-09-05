@@ -5,12 +5,19 @@ import type { Locale } from "@/i18n/config";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { BrandMark } from "@/components/motion/BrandMark";
 import { localePath } from "@/lib/utils";
 
 export function CoachTransitionChapter({ locale }: { locale: Locale }) {
   return (
     <section className="relative overflow-hidden bg-obsidian/92 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+      <div className="relative mx-auto max-w-6xl px-6 sm:px-10">
+        <BrandMark
+          variant="wordmark"
+          maxOpacity={0.14}
+          parallax={12}
+          className="absolute end-4 top-0 h-24 w-10 sm:end-8 sm:h-28 sm:w-12"
+        />
         <SectionLabel number="04" title={locale === "ar" ? "من لاعب إلى مدرب" : locale === "tr" ? "SPORCUDAN ANTRENÖRE" : "FROM FIGHTER TO COACH"} />
 
         <div className="mt-10 grid gap-10 md:grid-cols-2 md:items-center md:gap-16">

@@ -4,14 +4,22 @@ import type { Locale } from "@/i18n/config";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink } from "@/components/ui/Button";
+import { BrandMark } from "@/components/motion/BrandMark";
 import { localePath, t } from "@/lib/utils";
 import { pillars, shortDescription } from "@/data/academy";
 import { address } from "@/data/contact";
 
 export function AcademyChapter({ locale }: { locale: Locale }) {
   return (
-    <section className="relative bg-charcoal/92 py-24 sm:py-32">
-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+    <section className="relative overflow-hidden bg-charcoal/92 py-24 sm:py-32">
+      <BrandMark
+        variant="emblem"
+        maxOpacity={0.05}
+        parallax={12}
+        sweep
+        className="absolute -right-[18%] top-1/2 h-52 w-52 -translate-y-1/2 sm:-right-[10%] sm:h-[46vmax] sm:w-[46vmax]"
+      />
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-10">
         <SectionLabel number="05" title={locale === "ar" ? "الأكاديمية" : locale === "tr" ? "AKADEMİ" : "THE ACADEMY"} />
         <div className="mt-8 grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
           <Reveal>
