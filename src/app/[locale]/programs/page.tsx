@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
 import { programs } from "@/data/programs";
+import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { TransitionLink } from "@/components/transitions/TransitionLink";
 import { localePath, t, buildAlternates } from "@/lib/utils";
@@ -36,18 +37,13 @@ export default async function ProgramsPage({
 
   return (
     <>
-      <section className="relative bg-obsidian pb-12 pt-40 sm:pb-16">
-        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
-          <Reveal>
-            <p className="font-heading text-xs tracking-[0.4em] text-steel">05 — {locale === "ar" ? "البرامج" : "PROGRAMS"}</p>
-            <h1 className="font-heading text-balance mt-6 text-4xl text-bone sm:text-5xl md:text-6xl">
-              {locale === "ar" ? "مسار لكل مرحلة عمرية" : "A Path for Every Stage of Life"}
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        number="05"
+        eyebrow={locale === "ar" ? "البرامج" : "PROGRAMS"}
+        title={locale === "ar" ? "مسار لكل مرحلة عمرية" : "A Path for Every Stage of Life"}
+      />
 
-      <section className="relative bg-obsidian pb-28">
+      <section className="relative bg-obsidian/92 pb-28">
         <div className="mx-auto grid max-w-6xl gap-px overflow-hidden border border-bone/10 px-0 sm:grid-cols-2 sm:px-10 lg:grid-cols-3">
           {programs.map((program, i) => (
             <Reveal key={program.slug} delay={i * 0.05}>
@@ -66,7 +62,7 @@ export default async function ProgramsPage({
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-6">
                   <p className="font-heading text-xl text-bone">{t(locale, program.shortTitle)}</p>
-                  <p className="mt-1 text-xs text-steel">{t(locale, program.ageRange)}</p>
+                  {program.ageRange && <p className="mt-1 text-xs text-steel">{t(locale, program.ageRange)}</p>}
                   <p className="mt-3 max-w-xs text-xs leading-relaxed text-steel/80">{t(locale, program.summary)}</p>
                 </div>
               </TransitionLink>

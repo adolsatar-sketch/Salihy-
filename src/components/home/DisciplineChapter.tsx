@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function DisciplineChapter({ locale }: { locale: Locale }) {
   return (
-    <section className="relative flex min-h-[85vh] items-center overflow-hidden bg-obsidian py-24">
+    <section className="relative flex min-h-[85vh] items-center overflow-hidden bg-obsidian/92 py-24">
       <div className="absolute inset-0">
         <Image
           src="/assets/gallery/gallery-01.jpg"

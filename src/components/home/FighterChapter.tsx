@@ -13,7 +13,7 @@ export function FighterChapter({ locale }: { locale: Locale }) {
   const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1.22]);
 
   return (
-    <section className="relative bg-obsidian py-24 sm:py-32">
+    <section className="relative bg-obsidian/92 py-24 sm:py-32">
       <div className="mx-auto mb-12 max-w-6xl px-6 sm:px-10">
         <SectionLabel number="02" title={locale === "ar" ? "المقاتل" : "THE FIGHTER"} />
         <Reveal className="mt-6">

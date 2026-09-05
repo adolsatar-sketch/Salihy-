@@ -5,17 +5,10 @@ export type FaqItem = {
   answer: Bi;
 };
 
+// Answers avoid any specific age range, schedule, or day/hour claim that
+// hasn't been confirmed by the academy — see CONTENT_NEEDED.md for what's
+// still needed to fill those in properly.
 export const faqItems: FaqItem[] = [
-  {
-    question: {
-      ar: "ما هو الحد الأدنى للعمر للانضمام إلى الأكاديمية؟",
-      en: "What is the minimum age to join the academy?",
-    },
-    answer: {
-      ar: "يبدأ برنامج الأطفال من سن السادسة، مع برامج مخصصة لكل مرحلة عمرية حتى البالغين. تواصل معنا لمعرفة البرنامج الأنسب لعمر طفلك.",
-      en: "The Kids Program starts at age six, with dedicated programs for every stage up to adults. Contact us to find the right fit for your child's age.",
-    },
-  },
   {
     question: {
       ar: "هل أحتاج إلى خبرة سابقة في فنون القتال؟",
@@ -32,8 +25,8 @@ export const faqItems: FaqItem[] = [
       en: "How can I book a trial class?",
     },
     answer: {
-      ar: "يمكنك تعبئة نموذج التسجيل من صفحة التسجيل، أو التواصل مباشرة عبر واتساب وسيتم تحديد موعد الحصة التجريبية معك.",
-      en: "You can fill out the form on the Registration page, or reach out directly via WhatsApp to schedule your trial class.",
+      ar: "يمكنك تعبئة نموذج التسجيل من صفحة التسجيل، أو التواصل معنا مباشرة لتحديد موعد الحصة التجريبية.",
+      en: "You can fill out the form on the Registration page, or reach out to us directly to schedule your trial class.",
     },
   },
   {
@@ -68,22 +61,12 @@ export const faqItems: FaqItem[] = [
   },
   {
     question: {
-      ar: "أين تقع الأكاديمية وما هي أيام التدريب؟",
-      en: "Where is the academy located and what are the training days?",
+      ar: "أين تقع الأكاديمية؟",
+      en: "Where is the academy located?",
     },
     answer: {
-      ar: "تقع الأكاديمية في بغداد – الصليخ – شارع الـ600 – مقابل الكوخ. التدريب متاح أيام السبت والاثنين والأربعاء. راجع صفحة التواصل والموقع للتفاصيل والخريطة.",
-      en: "The academy is located in Baghdad – Al-Sulaikh – 600 Street – opposite Al-Koukh. Training runs on Saturdays, Mondays and Wednesdays. See the Contact & Location page for details and the map.",
-    },
-  },
-  {
-    question: {
-      ar: "هل يشارك طلاب الأكاديمية في بطولات فعلية؟",
-      en: "Do academy students compete in real tournaments?",
-    },
-    answer: {
-      ar: "نعم، لدى الأكاديمية مسار واضح من التدريب الأساسي إلى فريق البطولات، بمشاركات محلية ودولية موثقة في صفحة الإنجازات.",
-      en: "Yes, the academy has a clear path from foundational training to the Competition Team, with local and international appearances documented on the Achievements page.",
+      ar: "تقع الأكاديمية في بغداد – الصليخ – شارع الـ600 – مقابل الكوخ. راجع صفحة التواصل والموقع للتفاصيل والخريطة.",
+      en: "The academy is located in Baghdad – Al-Sulaikh – 600 Street – opposite Al-Koukh. See the Contact & Location page for details and the map.",
     },
   },
 ];

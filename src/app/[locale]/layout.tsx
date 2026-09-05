@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { CustomCursor } from "@/components/layout/CustomCursor";
+import { AmbientBackground } from "@/components/layout/AmbientBackground";
 import { TransitionProvider } from "@/components/transitions/TransitionProvider";
 import { IntroSplash } from "@/components/transitions/IntroSplash";
 import { getDictionary } from "@/i18n/dictionaries";
@@ -59,8 +60,9 @@ export default async function LocaleLayout({
 
   return (
     <MotionConfig reducedMotion="user">
-      <TransitionProvider>
+      <TransitionProvider locale={locale}>
         <LocaleAttributes locale={locale} />
+        <AmbientBackground />
         <IntroSplash locale={locale} />
         <div id="site-content" className="relative">
           <Header locale={locale} />

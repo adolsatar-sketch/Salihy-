@@ -10,7 +10,7 @@ import { address } from "@/data/contact";
 
 export function AcademyChapter({ locale }: { locale: Locale }) {
   return (
-    <section className="relative bg-charcoal py-24 sm:py-32">
+    <section className="relative bg-charcoal/92 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <SectionLabel number="05" title={locale === "ar" ? "الأكاديمية" : "THE ACADEMY"} />
         <div className="mt-8 grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">

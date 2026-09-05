@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
+import { PageHero } from "@/components/ui/PageHero";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ButtonLink } from "@/components/ui/Button";
@@ -38,17 +38,9 @@ export default async function AcademyPage({
 
   return (
     <>
-      <section className="relative bg-obsidian pb-16 pt-40 sm:pb-20">
-        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
-          <Reveal>
-            <p className="font-heading text-xs tracking-[0.4em] text-steel">04 — {locale === "ar" ? "الأكاديمية" : "THE ACADEMY"}</p>
-            <h1 className="font-heading text-balance mt-6 text-4xl text-bone sm:text-5xl md:text-6xl">{t(locale, tagline)}</h1>
-            <p className="mt-6 text-sm leading-relaxed text-steel sm:text-base">{t(locale, shortDescription)}</p>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero number="04" eyebrow={locale === "ar" ? "الأكاديمية" : "THE ACADEMY"} title={t(locale, tagline)} subtitle={t(locale, shortDescription)} />
 
-      <section className="relative bg-charcoal py-20 sm:py-28">
+      <section className="relative bg-charcoal/92 py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
           <SectionLabel number="—" title={locale === "ar" ? "ما الذي نبنيه" : "WHAT WE BUILD"} />
           <div className="mt-10 grid gap-px overflow-hidden border border-bone/10 sm:grid-cols-2 lg:grid-cols-3">
@@ -64,7 +56,7 @@ export default async function AcademyPage({
         </div>
       </section>
 
-      <section className="relative bg-obsidian py-20 sm:py-28">
+      <section className="relative bg-obsidian/92 py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-6 sm:px-10">
           <SectionLabel number="—" title={locale === "ar" ? "بيئة تدريب لكل الأعمار" : "A TRAINING GROUND FOR ALL"} />
           <div className="mt-8 flex flex-wrap gap-4">
@@ -77,29 +69,23 @@ export default async function AcademyPage({
         </div>
       </section>
 
-      <section className="relative bg-charcoal py-20 sm:py-28">
-        <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-10 md:grid-cols-2 md:items-center">
+      <section className="relative bg-charcoal/92 py-20 sm:py-28">
+        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
           <Reveal>
-            <div className="relative flex aspect-[4/3] flex-col items-center justify-center gap-4 border border-bone/15 bg-obsidian text-center">
-              <Image src="/assets/logo/logo-mark.png" alt="" width={72} height={72} className="opacity-60" />
-              <p className="max-w-xs text-sm text-steel">
-                {locale === "ar" ? "صور المقر ستُضاف قريبًا" : "Facility photos coming soon"}
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <SectionLabel number="—" title={locale === "ar" ? "الموقع" : "LOCATION"} />
+            <SectionLabel number="—" title={locale === "ar" ? "الموقع" : "LOCATION"} className="justify-center" />
             <p className="mt-6 text-xl text-bone">{t(locale, address)}</p>
-            <ul className="mt-6 space-y-2 text-sm text-steel">
-              {trainingDays.map((day) => (
-                <li key={t(locale, day.day)} className="flex justify-between gap-4 border-b border-bone/10 py-2">
-                  <span>{t(locale, day.day)}</span>
-                  <span>{t(locale, day.hours)}</span>
-                </li>
-              ))}
-            </ul>
+            {trainingDays.length > 0 && (
+              <ul className="mx-auto mt-6 max-w-sm space-y-2 text-start text-sm text-steel">
+                {trainingDays.map((day) => (
+                  <li key={t(locale, day.day)} className="flex justify-between gap-4 border-b border-bone/10 py-2">
+                    <span>{t(locale, day.day)}</span>
+                    <span>{t(locale, day.hours)}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
             <p className="mt-4 text-xs leading-relaxed text-steel/70">{t(locale, generalNote)}</p>
-            <div className="mt-8">
+            <div className="mt-8 flex justify-center">
               <ButtonLink href={localePath(locale, "/contact")} variant="outline">
                 {locale === "ar" ? "التواصل والموقع" : "Contact & Location"}
               </ButtonLink>

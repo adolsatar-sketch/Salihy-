@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
 import { buildAlternates } from "@/lib/utils";
-import { Reveal } from "@/components/ui/Reveal";
+import { PageHero } from "@/components/ui/PageHero";
 import { GalleryExplorer } from "@/components/gallery/GalleryExplorer";
 
 export async function generateMetadata({
@@ -34,16 +34,7 @@ export default async function GalleryPage({
 
   return (
     <>
-      <section className="relative bg-obsidian pb-4 pt-40">
-        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
-          <Reveal>
-            <p className="font-heading text-xs tracking-[0.4em] text-steel">07 — {locale === "ar" ? "الصور" : "GALLERY"}</p>
-            <h1 className="font-heading text-balance mt-6 text-4xl text-bone sm:text-5xl md:text-6xl">
-              {locale === "ar" ? "أرشيف بصري حي" : "A Living Visual Archive"}
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero number="07" eyebrow={locale === "ar" ? "الصور" : "GALLERY"} title={locale === "ar" ? "أرشيف بصري حي" : "A Living Visual Archive"} />
       <GalleryExplorer locale={locale} />
     </>
   );

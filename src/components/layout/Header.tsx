@@ -9,7 +9,7 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { primaryRoutes, programRoutes } from "@/lib/routes";
 import { t, localePath, swapLocaleInPath } from "@/lib/utils";
-import { INSTAGRAM_URL, buildWhatsappLink } from "@/data/site";
+import { INSTAGRAM_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
 
 export function Header({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -192,15 +192,17 @@ export function Header({ locale }: { locale: Locale }) {
                 <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-bone" data-cursor-hover>
                   INSTAGRAM
                 </a>
-                <a
-                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-bone"
-                  data-cursor-hover
-                >
-                  WHATSAPP
-                </a>
+                {WHATSAPP_ENABLED && (
+                  <a
+                    href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-bone"
+                    data-cursor-hover
+                  >
+                    WHATSAPP
+                  </a>
+                )}
                 <TransitionLink href={localePath(locale, "/contact")} className="hover:text-bone" data-cursor-hover>
                   {dict.nav.contact.toUpperCase()}
                 </TransitionLink>

@@ -12,7 +12,7 @@ export function ProgramsChapter({ locale }: { locale: Locale }) {
   const featured = programs.filter((p) => !p.isInformational).slice(0, 4);
 
   return (
-    <section className="relative bg-obsidian py-24 sm:py-32">
+    <section className="relative bg-obsidian/92 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
@@ -49,7 +49,7 @@ export function ProgramsChapter({ locale }: { locale: Locale }) {
                 <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/40 to-transparent" />
                 <div className="absolute inset-x-0 bottom-0 p-5">
                   <p className="font-heading text-lg text-bone">{t(locale, program.shortTitle)}</p>
-                  <p className="mt-1 text-xs text-steel">{t(locale, program.ageRange)}</p>
+                  {program.ageRange && <p className="mt-1 text-xs text-steel">{t(locale, program.ageRange)}</p>}
                 </div>
               </TransitionLink>
             </Reveal>

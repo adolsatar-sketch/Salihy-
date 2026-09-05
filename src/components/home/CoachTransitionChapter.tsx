@@ -9,7 +9,7 @@ import { localePath } from "@/lib/utils";
 
 export function CoachTransitionChapter({ locale }: { locale: Locale }) {
   return (
-    <section className="relative overflow-hidden bg-obsidian py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-obsidian/92 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <SectionLabel number="04" title={locale === "ar" ? "من لاعب إلى مدرب" : "FROM FIGHTER TO COACH"} />
 

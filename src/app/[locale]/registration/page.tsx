@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
 import { buildAlternates } from "@/lib/utils";
-import { Reveal } from "@/components/ui/Reveal";
+import { PageHero } from "@/components/ui/PageHero";
 import { RegistrationForm } from "@/components/registration/RegistrationForm";
 
 export async function generateMetadata({
@@ -34,18 +34,13 @@ export default async function RegistrationPage({
 
   return (
     <>
-      <section className="relative bg-obsidian pb-4 pt-40">
-        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
-          <Reveal>
-            <p className="font-heading text-xs tracking-[0.4em] text-steel">11 — {locale === "ar" ? "التسجيل" : "REGISTRATION"}</p>
-            <h1 className="font-heading text-balance mt-6 text-4xl text-bone sm:text-5xl md:text-6xl">
-              {locale === "ar" ? "كل بطل بدأ بخطوة أولى" : "Every Champion Started With a First Step"}
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        number="11"
+        eyebrow={locale === "ar" ? "التسجيل" : "REGISTRATION"}
+        title={locale === "ar" ? "كل بطل بدأ بخطوة أولى" : "Every Champion Started With a First Step"}
+      />
 
-      <section className="relative bg-obsidian py-16 sm:py-24">
+      <section className="relative bg-obsidian/92 py-16 sm:py-24">
         <div className="mx-auto max-w-2xl px-6 sm:px-10">
           <RegistrationForm locale={locale} />
         </div>

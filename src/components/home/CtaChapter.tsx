@@ -16,7 +16,7 @@ export function CtaChapter({ locale }: { locale: Locale }) {
       : "Hello, I'd like to book a trial class at Salihy Academy.";
 
   return (
-    <section className="relative overflow-hidden bg-obsidian py-28 sm:py-36">
+    <section className="relative overflow-hidden bg-obsidian/92 py-28 sm:py-36">
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.06]">
         <Image src="/assets/logo/logo-mark.png" alt="" width={900} height={900} />
       </div>

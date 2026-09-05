@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
-import { buildAlternates } from "@/lib/utils";
-import { Reveal } from "@/components/ui/Reveal";
+import { PageHero } from "@/components/ui/PageHero";
 import { Timeline } from "@/components/legacy/Timeline";
+import { buildAlternates } from "@/lib/utils";
+import { careerTimeline } from "@/data/coach";
 
 export async function generateMetadata({
   params,
@@ -34,20 +35,17 @@ export default async function LegacyPage({
 
   return (
     <>
-      <section className="relative bg-obsidian pb-16 pt-40 sm:pb-24">
-        <div className="mx-auto max-w-3xl px-6 text-center sm:px-10">
-          <Reveal>
-            <p className="font-heading text-xs tracking-[0.4em] text-steel">02 — {locale === "ar" ? "المسيرة" : "LEGACY"}</p>
-            <h1 className="font-heading text-balance mt-6 text-4xl text-bone sm:text-5xl md:text-6xl">
-              {locale === "ar" ? "من الخطوة الأولى إلى الأكاديمية" : "From the First Step to the Academy"}
-            </h1>
-          </Reveal>
-        </div>
-      </section>
+      <PageHero
+        number="02"
+        eyebrow={locale === "ar" ? "المسيرة" : "LEGACY"}
+        title={locale === "ar" ? "من الخطوة الأولى إلى الأكاديمية" : "From the First Step to the Academy"}
+      />
 
-      <section className="relative bg-obsidian pb-32">
-        <Timeline locale={locale} />
-      </section>
+      {careerTimeline.length > 0 && (
+        <section className="relative bg-obsidian/92 pb-32">
+          <Timeline locale={locale} />
+        </section>
+      )}
     </>
   );
 }

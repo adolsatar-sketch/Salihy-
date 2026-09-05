@@ -1,13 +1,18 @@
 "use client";
 
-import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { ButtonLink } from "@/components/ui/Button";
 import { RevealLines } from "@/components/ui/Reveal";
+import { LogoHeroMark } from "@/components/motion/LogoHeroMark";
+import { LogoHeroMarkMobile } from "@/components/motion/LogoHeroMarkMobile";
 import { localePath } from "@/lib/utils";
 
+// The Hero's visual centerpiece is the official logo — not a photo of a
+// fighter. Real photography belongs in the documentary chapters further
+// down the page (Origin, Impact, Proof) and inside Gallery/Legacy/
+// Achievements, never here.
 export function HeroChapter({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
   const reducedMotion = useReducedMotion();
@@ -18,48 +23,31 @@ export function HeroChapter({ locale }: { locale: Locale }) {
       : ["FROM THE FIGHT", "TO THE FUTURE OF CHAMPIONS"];
 
   return (
-    <section className="relative flex min-h-[100dvh] flex-col justify-end overflow-hidden bg-obsidian">
-      <div className="absolute inset-0">
-        <Image
-          src="/assets/gallery/gallery-03.jpg"
-          alt={
-            locale === "ar"
-              ? "لاعب كيوكوشنكاي ينفذ ركلة عالية داخل صالة تدريب"
-              : "A Kyokushin fighter executing a high kick inside the training hall"
-          }
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-[65%_20%]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/70 to-obsidian/30" />
-        <div className="absolute inset-0 bg-gradient-to-r from-obsidian/60 via-transparent to-obsidian/40" />
+    <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-obsidian/85 pt-24">
+      <LogoHeroMark className="mx-auto hidden md:block" />
+      <LogoHeroMarkMobile className="mx-auto md:hidden" />
 
-        {!reducedMotion && (
-          <motion.div
-            aria-hidden="true"
-            className="absolute -end-1/4 top-1/4 h-[60vh] w-[60vh] rounded-full bg-blood/25 blur-[3px]"
-            style={{ filter: "blur(80px)" }}
-            animate={{ opacity: [0.25, 0.45, 0.25], scale: [1, 1.08, 1] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-          />
-        )}
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-24 pt-40 sm:px-10 sm:pb-28">
+      {/* Text and CTA are secondary: they settle in after the logo, and
+          never compete with it for visual weight. */}
+      <motion.div
+        className="relative z-10 mx-auto w-full max-w-3xl px-6 pb-16 pt-8 text-center sm:px-10"
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}
+      >
         <p className="font-heading mb-5 text-xs tracking-[0.4em] text-steel">
           {locale === "ar" ? "أكاديمية صالحي للكيوكوشنكاي" : "SALIHY KYOKUSHIN ACADEMY"}
         </p>
-        <h1 className="font-heading text-balance text-4xl leading-[1.05] text-bone xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl">
+        <h1 className="font-heading text-balance text-3xl leading-[1.1] text-bone xs:text-4xl sm:text-5xl">
           <RevealLines lines={lines} />
         </h1>
-        <p className="mt-6 max-w-lg text-sm leading-relaxed text-steel sm:text-base">
+        <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-steel sm:text-base">
           {locale === "ar"
             ? "تدريب احترافي، انضباط، ثقة وصناعة أبطال لجميع الأعمار."
             : "Professional training, discipline, confidence — building champions of every age."}
         </p>
 
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-10 flex flex-wrap justify-center gap-4">
           <ButtonLink href={localePath(locale, "/legacy")} variant="primary" data-cursor-hover>
             {dict.common.exploreJourney}
           </ButtonLink>
@@ -67,7 +55,7 @@ export function HeroChapter({ locale }: { locale: Locale }) {
             {dict.common.bookTrial}
           </ButtonLink>
         </div>
-      </div>
+      </motion.div>
 
       <motion.div
         className="absolute inset-x-0 bottom-6 z-10 flex flex-col items-center gap-2 text-steel"

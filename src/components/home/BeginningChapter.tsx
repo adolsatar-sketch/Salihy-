@@ -8,7 +8,7 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export function BeginningChapter({ locale }: { locale: Locale }) {
   return (
-    <section className="relative bg-charcoal py-24 sm:py-32">
+    <section className="relative bg-charcoal/92 py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-10 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-16">
         <div>
           <SectionLabel number="01" title={locale === "ar" ? "البداية" : "THE BEGINNING"} />

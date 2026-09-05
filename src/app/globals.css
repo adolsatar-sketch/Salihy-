@@ -5,6 +5,7 @@
   --color-charcoal: #111111;
   --color-blood: #8f0b17;
   --color-active: #b20f20;
+  --color-rust: #3a1210;
   --color-bone: #f2efe8;
   --color-steel: #9a9a9a;
   --color-gold: #c5a253;
@@ -78,6 +79,63 @@ html[data-intro="done"] #site-content {
   transition: opacity 0.5s ease 0.05s;
 }
 
+/* Pure-CSS safety net: the "pending" -> "done" switch above is written by
+   React (IntroSplash), so on a slow connection where the JS bundle is
+   still downloading/hydrating, nothing would ever flip it and the content
+   could stay invisible indefinitely — exactly the "hung blank screen" this
+   guards against. This forces full opacity at 2.3s regardless of whether
+   JS ever runs, independent of the intro's own ~2s timer. */
+@keyframes force-reveal-site-content {
+  to {
+    opacity: 1;
+  }
+}
+#site-content {
+  animation: force-reveal-site-content 0s 2.3s forwards;
+}
+
+/* Static, JS-independent intro fallback — see the comment on #intro-static
+   in src/app/layout.tsx. Visible by default (so it's on screen at the
+   very first paint), hidden the instant the intro finishes, and
+   force-hidden by pure CSS at 2.3s no matter what as a hard ceiling. */
+#intro-static {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  animation: force-hide-intro-static 0s 2.3s forwards;
+}
+#intro-static img {
+  width: 10rem;
+  height: 10rem;
+  object-fit: contain;
+}
+@media (min-width: 22.5rem) {
+  #intro-static img {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+@media (min-width: 40rem) {
+  #intro-static img {
+    width: 14rem;
+    height: 14rem;
+  }
+}
+html[data-intro="done"] #intro-static {
+  display: none;
+}
+@keyframes force-hide-intro-static {
+  to {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
 ::selection {
   background: var(--color-active);
   color: var(--color-bone);
@@ -100,26 +158,11 @@ button {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Custom cursor — desktop / fine-pointer only */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 22px;
-  height: 22px;
-  margin-top: -11px;
-  margin-left: -11px;
-  border: 1.5px solid var(--color-active);
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: 100;
-  transition: transform 0.18s ease, background-color 0.18s ease, opacity 0.18s ease;
-  will-change: transform;
-}
-
-@media (pointer: coarse) {
-  .custom-cursor {
-    display: none;
+/* Custom cursor: only for devices with a real pointer (mouse/trackpad) */
+@media (hover: hover) and (pointer: fine) {
+  html.has-custom-cursor,
+  html.has-custom-cursor * {
+    cursor: none !important;
   }
 }
 
@@ -135,24 +178,162 @@ button {
   text-wrap: balance;
 }
 
-@keyframes pulse-ring {
+/* Ambient background drift — transform/opacity only (no scale, no filter),
+   so these run forever on every page as pure compositor work instead of
+   forcing a repaint each frame, which is what makes this class of
+   animation stutter on mid-range Android. */
+@keyframes ambient-drift-a {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 11% 14%;
+  }
+}
+@keyframes ambient-drift-b {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -14% 9%;
+  }
+}
+@keyframes ambient-drift-c {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 9% -12%;
+  }
+}
+@keyframes ambient-drift-d {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: -8% -11%;
+  }
+}
+.animate-ambient-drift-a {
+  animation: ambient-drift-a 9s ease-in-out infinite;
+}
+.animate-ambient-drift-b {
+  animation: ambient-drift-b 11s ease-in-out infinite;
+}
+.animate-ambient-drift-c {
+  animation: ambient-drift-c 8s ease-in-out infinite;
+}
+.animate-ambient-drift-d {
+  animation: ambient-drift-d 13s ease-in-out infinite;
+}
+
+@keyframes ambient-line-drift {
   0% {
-    transform: scale(0.4);
-    opacity: 0.9;
+    transform: rotate(-6deg) translateY(0);
+  }
+  50% {
+    transform: rotate(5deg) translateY(-5%);
   }
   100% {
-    transform: scale(2.2);
+    transform: rotate(-6deg) translateY(0);
+  }
+}
+.animate-ambient-line {
+  animation: ambient-line-drift 15s ease-in-out infinite;
+}
+
+@keyframes ambient-sweep {
+  0%,
+  80% {
+    transform: translateX(-60%) skewX(-12deg);
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(160%) skewX(-12deg);
     opacity: 0;
   }
 }
+.animate-ambient-sweep {
+  animation: ambient-sweep 9s ease-in-out infinite;
+}
 
-.click-pulse {
-  position: fixed;
-  width: 22px;
-  height: 22px;
-  border-radius: 999px;
-  border: 1.5px solid var(--color-active);
-  pointer-events: none;
-  z-index: 99;
-  animation: pulse-ring 0.5s ease-out forwards;
+/* Mobile hero logo: pure CSS motion only, no JS/SVG masking, so it is
+   never gated behind an observer or animation library on iOS in-app
+   browsers (WhatsApp/Instagram's in-app WKWebView included). */
+@keyframes hero-mobile-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes hero-mobile-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+.hero-mobile-logo-img {
+  animation:
+    hero-mobile-float 5.5s ease-in-out infinite,
+    hero-mobile-breathe 5.5s ease-in-out infinite;
+}
+
+@keyframes hero-mobile-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.05);
+  }
+}
+.hero-mobile-logo-glow {
+  animation: hero-mobile-glow-pulse 6s ease-in-out infinite;
+}
+
+@keyframes hero-mobile-sweep {
+  0%,
+  85% {
+    transform: translateX(-120%) skewX(-15deg);
+    opacity: 0;
+  }
+  90% {
+    opacity: 0.35;
+  }
+  100% {
+    transform: translateX(220%) skewX(-15deg);
+    opacity: 0;
+  }
+}
+.hero-mobile-logo-sweep {
+  animation: hero-mobile-sweep 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ambient-drift-a,
+  .animate-ambient-drift-b,
+  .animate-ambient-drift-c,
+  .animate-ambient-drift-d,
+  .animate-ambient-line,
+  .animate-ambient-sweep,
+  .hero-mobile-logo-img,
+  .hero-mobile-logo-glow,
+  .hero-mobile-logo-sweep {
+    animation: none;
+  }
 }
