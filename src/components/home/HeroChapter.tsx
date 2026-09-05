@@ -20,7 +20,9 @@ export function HeroChapter({ locale }: { locale: Locale }) {
   const lines =
     locale === "ar"
       ? ["من ساحة النزال", "إلى صناعة أبطال الغد"]
-      : ["FROM THE FIGHT", "TO THE FUTURE OF CHAMPIONS"];
+      : locale === "tr"
+        ? ["MÜCADELEDEN", "ŞAMPİYONLARIN GELECEĞİNE"]
+        : ["FROM THE FIGHT", "TO THE FUTURE OF CHAMPIONS"];
 
   return (
     <section className="relative flex min-h-[100dvh] flex-col justify-center overflow-hidden bg-obsidian/85 pt-24">
@@ -36,7 +38,7 @@ export function HeroChapter({ locale }: { locale: Locale }) {
         transition={{ duration: 0.6, delay: reducedMotion ? 0 : 0.9, ease: [0.16, 1, 0.3, 1] }}
       >
         <p className="font-heading mb-5 text-xs tracking-[0.4em] text-steel">
-          {locale === "ar" ? "أكاديمية صالحي للكيوكوشنكاي" : "SALIHY KYOKUSHIN ACADEMY"}
+          {locale === "ar" ? "أكاديمية صالحي للكيوكوشنكاي" : locale === "tr" ? "SALIHY KYOKUSHIN AKADEMİSİ" : "SALIHY KYOKUSHIN ACADEMY"}
         </p>
         <h1 className="font-heading text-balance text-3xl leading-[1.1] text-bone xs:text-4xl sm:text-5xl">
           <RevealLines lines={lines} />
@@ -44,7 +46,9 @@ export function HeroChapter({ locale }: { locale: Locale }) {
         <p className="mx-auto mt-6 max-w-lg text-sm leading-relaxed text-steel sm:text-base">
           {locale === "ar"
             ? "تدريب احترافي، انضباط، ثقة وصناعة أبطال لجميع الأعمار."
-            : "Professional training, discipline, confidence — building champions of every age."}
+            : locale === "tr"
+              ? "Profesyonel antrenman, disiplin, özgüven — her yaştan şampiyon yetiştirmek."
+              : "Professional training, discipline, confidence — building champions of every age."}
         </p>
 
         <div className="mt-10 flex flex-wrap justify-center gap-4">

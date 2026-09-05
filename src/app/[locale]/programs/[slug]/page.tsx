@@ -19,7 +19,7 @@ export async function generateMetadata({
   const program = programs.find((p) => p.slug === slug);
   if (!program) return {};
 
-  const title = `${t(locale, program.title)} | ${locale === "ar" ? "أكاديمية صالحي" : "Salihy Academy"}`;
+  const title = `${t(locale, program.title)} | ${locale === "ar" ? "أكاديمية صالحي" : locale === "tr" ? "Salihy Akademisi" : "Salihy Academy"}`;
   return {
     title,
     description: t(locale, program.summary),

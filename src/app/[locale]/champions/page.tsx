@@ -11,11 +11,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "الأبطال | أكاديمية صالحي" : "Champions | Salihy Academy";
+  const title = locale === "ar" ? "الأبطال | أكاديمية صالحي" : locale === "tr" ? "Şampiyonlar | Salihy Akademisi" : "Champions | Salihy Academy";
   const description =
     locale === "ar"
       ? "طلاب أكاديمية صالحي أثناء التدريب والمشاركات."
-      : "Salihy Academy's students during training and appearances.";
+      : locale === "tr"
+        ? "Salihy Akademisi öğrencileri antrenman ve katılımları sırasında."
+        : "Salihy Academy's students during training and appearances.";
   return {
     title,
     description,
@@ -34,7 +36,7 @@ export default async function ChampionsPage({
 
   return (
     <>
-      <PageHero number="06" eyebrow={locale === "ar" ? "الأبطال" : "CHAMPIONS"} title={locale === "ar" ? "طلاب الأكاديمية" : "Academy Students"} />
+      <PageHero number="06" eyebrow={locale === "ar" ? "الأبطال" : locale === "tr" ? "ŞAMPİYONLAR" : "CHAMPIONS"} title={locale === "ar" ? "طلاب الأكاديمية" : locale === "tr" ? "Akademi Öğrencileri" : "Academy Students"} />
       <ChampionsGrid locale={locale} />
     </>
   );

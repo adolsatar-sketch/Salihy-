@@ -116,7 +116,7 @@ export function IntroSplash({ locale }: { locale: Locale }) {
             transition={{ duration: 0.5, delay: 0.75 }}
             className="mt-6 text-[10px] tracking-[0.5em] text-steel xs:text-xs"
           >
-            {locale === "ar" ? "أكاديمية الكيوكوشنكاي" : "KYOKUSHIN ACADEMY"}
+            {locale === "ar" ? "أكاديمية الكيوكوشنكاي" : locale === "tr" ? "KYOKUSHIN AKADEMİSİ" : "KYOKUSHIN ACADEMY"}
           </motion.p>
 
           <AnimatePresence>
@@ -129,7 +129,7 @@ export function IntroSplash({ locale }: { locale: Locale }) {
                 exit={{ opacity: 0 }}
                 className="absolute bottom-8 end-8 text-xs tracking-[0.2em] text-steel underline-offset-4 hover:text-bone hover:underline"
               >
-                {locale === "ar" ? "تخطي المقدمة" : "SKIP INTRO"}
+                {locale === "ar" ? "تخطي المقدمة" : locale === "tr" ? "GİRİŞİ ATLA" : "SKIP INTRO"}
               </motion.button>
             )}
           </AnimatePresence>

@@ -12,6 +12,8 @@ export const WHATSAPP_ENABLED = Boolean(WHATSAPP_NUMBER);
 
 export const INSTAGRAM_URL = "https://www.instagram.com/salihy_kyokushin_academy/";
 
+export const WAZE_URL = "https://waze.com/ul/hsvztcz6b9";
+
 export function buildWhatsappLink(message: string): string {
   if (!WHATSAPP_NUMBER) return INSTAGRAM_URL;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;

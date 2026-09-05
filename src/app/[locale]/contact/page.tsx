@@ -7,7 +7,7 @@ import { ExternalButtonLink } from "@/components/ui/Button";
 import { t, buildAlternates } from "@/lib/utils";
 import { address, mapEmbedSrc, mapLinkSrc, trainingDays, generalNote } from "@/data/contact";
 import { weeklySlots, scheduleNote } from "@/data/schedule";
-import { INSTAGRAM_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
+import { INSTAGRAM_URL, WAZE_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata({
@@ -17,11 +17,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "التواصل والموقع | أكاديمية صالحي" : "Contact & Location | Salihy Academy";
+  const title = locale === "ar" ? "التواصل والموقع | أكاديمية صالحي" : locale === "tr" ? "İletişim ve Konum | Salihy Akademisi" : "Contact & Location | Salihy Academy";
   const description =
     locale === "ar"
       ? "تواصل مع أكاديمية صالحي للكيوكوشنكاي في بغداد – الصليخ، واطّلع على جدول التدريب والموقع على الخريطة."
-      : "Contact Salihy Kyokushin Academy in Baghdad – Al-Sulaikh, and see the training schedule and map location.";
+      : locale === "tr"
+        ? "Bağdat – Al-Sulaikh'te bulunan Salihy Kyokushin Akademisi ile iletişime geçin ve antrenman programı ile harita konumunu görün."
+        : "Contact Salihy Kyokushin Academy in Baghdad – Al-Sulaikh, and see the training schedule and map location.";
 
   return {
     title,
@@ -43,7 +45,7 @@ export default async function ContactPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SportsActivityLocation",
-    name: t(locale, { ar: "أكاديمية صالحي للكيوكوشنكاي", en: "Salihy Kyokushin Academy" }),
+    name: t(locale, { ar: "أكاديمية صالحي للكيوكوشنكاي", en: "Salihy Kyokushin Academy", tr: "Salihy Kyokushin Akademisi" }),
     address: {
       "@type": "PostalAddress",
       streetAddress: "600 Street, Al-Sulaikh",
@@ -57,13 +59,21 @@ export default async function ContactPage({
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <PageHero number="12" eyebrow={locale === "ar" ? "التواصل" : "CONTACT"} title={locale === "ar" ? "تعال إلى الصالة" : "Come to the Dojo"} />
+      <PageHero number="12" eyebrow={locale === "ar" ? "التواصل" : locale === "tr" ? "İLETİŞİM" : "CONTACT"} title={locale === "ar" ? "تعال إلى الصالة" : locale === "tr" ? "Dojoya Gel" : "Come to the Dojo"} />
 
       <section className="relative bg-obsidian/92 py-16 sm:py-24">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-10 md:grid-cols-2">
           <Reveal className="min-w-0">
             <SectionLabel number="—" title={dict.common.addressLabel} />
             <p className="mt-4 text-xl text-bone">{t(locale, address)}</p>
+            <a
+              href={WAZE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-3 inline-block text-xs text-steel underline-offset-4 hover:text-bone hover:underline"
+            >
+              {dict.common.openInWaze}
+            </a>
 
             {trainingDays.length > 0 && (
               <>
@@ -85,9 +95,9 @@ export default async function ContactPage({
                 <table className="w-full min-w-[420px] border-collapse text-xs">
                   <thead>
                     <tr className="border-b border-bone/15 text-start text-steel">
-                      <th className="py-2 text-start font-normal">{locale === "ar" ? "الأيام" : "Days"}</th>
-                      <th className="py-2 text-start font-normal">{locale === "ar" ? "الوقت" : "Time"}</th>
-                      <th className="py-2 text-start font-normal">{locale === "ar" ? "الفئة" : "Group"}</th>
+                      <th className="py-2 text-start font-normal">{locale === "ar" ? "الأيام" : locale === "tr" ? "Günler" : "Days"}</th>
+                      <th className="py-2 text-start font-normal">{locale === "ar" ? "الوقت" : locale === "tr" ? "Saat" : "Time"}</th>
+                      <th className="py-2 text-start font-normal">{locale === "ar" ? "الفئة" : locale === "tr" ? "Grup" : "Group"}</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -107,7 +117,7 @@ export default async function ContactPage({
             <div className="mt-10 flex flex-wrap gap-4">
               {WHATSAPP_ENABLED && (
                 <ExternalButtonLink
-                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : locale === "tr" ? "Merhaba" : "Hello")}
                   target="_blank"
                   rel="noopener noreferrer"
                   variant="primary"
@@ -129,7 +139,7 @@ export default async function ContactPage({
           <Reveal delay={0.1}>
             <div className="relative aspect-[4/5] w-full overflow-hidden border border-bone/10 sm:aspect-square">
               <iframe
-                title={locale === "ar" ? "خريطة موقع الأكاديمية" : "Academy location map"}
+                title={locale === "ar" ? "خريطة موقع الأكاديمية" : locale === "tr" ? "Akademi konum haritası" : "Academy location map"}
                 src={mapEmbedSrc}
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -142,7 +152,7 @@ export default async function ContactPage({
               rel="noopener noreferrer"
               className="mt-3 inline-block text-xs text-steel underline-offset-4 hover:text-bone hover:underline"
             >
-              {locale === "ar" ? "فتح في خرائط جوجل" : "Open in Google Maps"}
+              {locale === "ar" ? "فتح في خرائط جوجل" : locale === "tr" ? "Google Haritalar'da Aç" : "Open in Google Maps"}
             </a>
           </Reveal>
         </div>

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { TransitionLink } from "@/components/transitions/TransitionLink";
-import type { Locale } from "@/i18n/config";
+import { locales, localeShortLabel, type Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { primaryRoutes, programRoutes } from "@/lib/routes";
 import { t, localePath, swapLocaleInPath } from "@/lib/utils";
@@ -47,9 +47,6 @@ export function Header({ locale }: { locale: Locale }) {
     };
   }, [menuOpen]);
 
-  const otherLocale: Locale = locale === "ar" ? "en" : "ar";
-  const langHref = swapLocaleInPath(pathname, otherLocale);
-
   return (
     <>
       <header
@@ -70,14 +67,26 @@ export function Header({ locale }: { locale: Locale }) {
           </TransitionLink>
 
           <div className="flex items-center gap-3 sm:gap-5">
-            <TransitionLink
-              href={langHref}
-              className="font-heading text-xs tracking-[0.25em] text-bone/80 transition-colors hover:text-bone"
-              data-cursor-hover
-              aria-label={locale === "ar" ? "Switch to English" : "التبديل إلى العربية"}
-            >
-              {dict.nav.language}
-            </TransitionLink>
+            <div className="flex items-center gap-2 font-heading text-xs tracking-[0.2em]" role="group" aria-label="Language">
+              {locales.map((loc, i) => (
+                <span key={loc} className="flex items-center gap-2">
+                  {i > 0 && <span className="text-bone/30" aria-hidden="true">/</span>}
+                  {loc === locale ? (
+                    <span className="text-bone" aria-current="true">
+                      {localeShortLabel[loc]}
+                    </span>
+                  ) : (
+                    <TransitionLink
+                      href={swapLocaleInPath(pathname, loc)}
+                      className="text-bone/60 transition-colors hover:text-bone"
+                      data-cursor-hover
+                    >
+                      {localeShortLabel[loc]}
+                    </TransitionLink>
+                  )}
+                </span>
+              ))}
+            </div>
 
             <TransitionLink
               href={localePath(locale, "/registration")}
@@ -194,7 +203,7 @@ export function Header({ locale }: { locale: Locale }) {
                 </a>
                 {WHATSAPP_ENABLED && (
                   <a
-                    href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                    href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : locale === "tr" ? "Merhaba" : "Hello")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-bone"

@@ -28,14 +28,8 @@ export type Achievement = {
 export const achievements: Achievement[] = [];
 
 export const medalLabel: Record<MedalTier, Bi> = {
-  gold: { ar: "ذهبية", en: "Gold" },
-  silver: { ar: "فضية", en: "Silver" },
-  bronze: { ar: "برونزية", en: "Bronze" },
-  participation: { ar: "مشاركة", en: "Participation" },
+  gold: { ar: "ذهبية", en: "Gold", tr: "Altın" },
+  silver: { ar: "فضية", en: "Silver", tr: "Gümüş" },
+  bronze: { ar: "برونزية", en: "Bronze", tr: "Bronz" },
+  participation: { ar: "مشاركة", en: "Participation", tr: "Katılım" },
 };
-
-export function achievementHeadline(a: Achievement, locale: "ar" | "en"): string {
-  if (a.tournament) return a.tournament[locale];
-  if (a.place) return a.place[locale];
-  return "";
-}

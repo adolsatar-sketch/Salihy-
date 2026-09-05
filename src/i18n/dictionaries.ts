@@ -18,7 +18,6 @@ export type Dictionary = {
     contact: string;
     menu: string;
     close: string;
-    language: string;
   };
   programsNav: {
     kids: string;
@@ -61,6 +60,7 @@ export type Dictionary = {
     addressLabel: string;
     hoursLabel: string;
     scheduleLabel: string;
+    openInWaze: string;
     sendWhatsapp: string;
     formSuccessTitle: string;
     formSuccessBody: string;
@@ -95,7 +95,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
       contact: "التواصل",
       menu: "القائمة",
       close: "إغلاق",
-      language: "EN",
     },
     programsNav: {
       kids: "الأطفال",
@@ -109,7 +108,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     common: {
       exploreJourney: "اكتشف الرحلة",
-      bookTrial: "احجز حصة تجريبية",
+      bookTrial: "احجز مكانك",
       whatsappContact: "تواصل عبر واتساب",
       readMore: "اقرأ المزيد",
       viewAll: "عرض الكل",
@@ -138,6 +137,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       addressLabel: "العنوان",
       hoursLabel: "أوقات التواجد",
       scheduleLabel: "جدول التدريب",
+      openInWaze: "افتح الموقع على Waze",
       sendWhatsapp: "إرسال عبر واتساب",
       formSuccessTitle: "تم استلام طلبك",
       formSuccessBody:
@@ -171,7 +171,6 @@ export const dictionaries: Record<Locale, Dictionary> = {
       contact: "Contact",
       menu: "Menu",
       close: "Close",
-      language: "AR",
     },
     programsNav: {
       kids: "Kids",
@@ -185,7 +184,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
     },
     common: {
       exploreJourney: "Explore the Journey",
-      bookTrial: "Book a Trial Class",
+      bookTrial: "Reserve Your Spot",
       whatsappContact: "Contact via WhatsApp",
       readMore: "Read More",
       viewAll: "View All",
@@ -214,6 +213,7 @@ export const dictionaries: Record<Locale, Dictionary> = {
       addressLabel: "Address",
       hoursLabel: "Hours",
       scheduleLabel: "Training Schedule",
+      openInWaze: "Open in Waze",
       sendWhatsapp: "Send via WhatsApp",
       formSuccessTitle: "Your request is ready",
       formSuccessBody:
@@ -225,6 +225,82 @@ export const dictionaries: Record<Locale, Dictionary> = {
       errorTitle: "Something went wrong",
       errorBody: "We hit a temporary obstacle. Try again or return home.",
       tryAgain: "Try Again",
+    },
+  },
+  tr: {
+    meta: {
+      siteName: "Salihy Kyokushin Akademisi",
+    },
+    nav: {
+      home: "Ana Sayfa",
+      coach: "Antrenör",
+      legacy: "Miras",
+      achievements: "Başarılar",
+      academy: "Akademi",
+      programs: "Programlar",
+      champions: "Şampiyonlar",
+      gallery: "Galeri",
+      videos: "Videolar",
+      news: "Haberler",
+      faq: "Sıkça Sorulan Sorular",
+      registration: "Kayıt",
+      contact: "İletişim",
+      menu: "Menü",
+      close: "Kapat",
+    },
+    programsNav: {
+      kids: "Çocuklar",
+      youth: "Gençler",
+      adults: "Yetişkinler",
+      women: "Kadınlar",
+      competitionTeam: "Müsabaka Takımı",
+      studySport: "Eğitim ve Spor",
+      trainingSystem: "Antrenman Sistemi",
+      beltJourney: "Kuşak Yolculuğu",
+    },
+    common: {
+      exploreJourney: "Yolculuğu Keşfet",
+      bookTrial: "Yerini Ayırt",
+      whatsappContact: "WhatsApp'tan İletişime Geç",
+      readMore: "Devamını Oku",
+      viewAll: "Tümünü Gör",
+      register: "Şimdi Kayıt Ol",
+      backToTop: "Yukarı dön",
+      skipIntro: "Girişi Geç",
+      loading: "Yükleniyor",
+      scrollDown: "Aşağı kaydır",
+      close: "Kapat",
+      next: "Sonraki",
+      previous: "Önceki",
+      all: "Tümü",
+      year: "Yıl",
+      location: "Konum",
+      category: "Kategori",
+      result: "Derece",
+      individual: "Ferdi",
+      team: "Takım",
+      gold: "Altın",
+      silver: "Gümüş",
+      bronze: "Bronz",
+      insideIraq: "Irak İçi",
+      outsideIraq: "Irak Dışı",
+      coachAchievement: "Antrenörün Başarısı",
+      studentAchievement: "Öğrencinin Başarısı",
+      addressLabel: "Adres",
+      hoursLabel: "Çalışma Saatleri",
+      scheduleLabel: "Antrenman Programı",
+      openInWaze: "Waze'de Aç",
+      sendWhatsapp: "WhatsApp ile Gönder",
+      formSuccessTitle: "Talebiniz hazır",
+      formSuccessBody:
+        "Teşekkür ederiz. Mesajınız hazırlandı — kaydınızı tamamlamak için WhatsApp üzerinden gönderin, ekibimiz sizinle iletişime geçecektir.",
+      required: "Bu alan zorunludur",
+      notFoundTitle: "Sayfa bulunamadı",
+      notFoundBody: "Bu yol ringin dışına çıktı. Yolculuğa devam etmek için ana sayfaya dönün.",
+      backHome: "Ana Sayfaya Dön",
+      errorTitle: "Beklenmedik bir hata oluştu",
+      errorBody: "Geçici bir sorunla karşılaştık. Tekrar deneyin veya ana sayfaya dönün.",
+      tryAgain: "Tekrar Dene",
     },
   },
 };

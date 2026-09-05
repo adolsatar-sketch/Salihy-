@@ -15,11 +15,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "المدرب | أكاديمية صالحي" : "The Coach | Salihy Academy";
+  const title = locale === "ar" ? "المدرب | أكاديمية صالحي" : locale === "tr" ? "Antrenör | Salihy Akademisi" : "The Coach | Salihy Academy";
   const description =
     locale === "ar"
       ? "المدرب الذي يقود أكاديمية صالحي للكيوكوشنكاي في بغداد."
-      : "The coach leading Salihy Kyokushin Academy in Baghdad.";
+      : locale === "tr"
+        ? "Bağdat'taki Salihy Kyokushin Akademisi'ne liderlik eden antrenör."
+        : "The coach leading Salihy Kyokushin Academy in Baghdad.";
   return {
     title,
     description,
@@ -36,7 +38,7 @@ export default async function CoachPage({
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
 
-  const heading = coachProfile.fullName ? t(locale, coachProfile.fullName) : locale === "ar" ? "المدرب" : "The Coach";
+  const heading = coachProfile.fullName ? t(locale, coachProfile.fullName) : locale === "ar" ? "المدرب" : locale === "tr" ? "Antrenör" : "The Coach";
   const subline = [coachProfile.rankAndBelt, coachProfile.yearsOfExperience]
     .filter((v): v is NonNullable<typeof v> => Boolean(v))
     .map((v) => t(locale, v));
@@ -45,7 +47,7 @@ export default async function CoachPage({
     <>
       <PageHero
         number="01"
-        eyebrow={locale === "ar" ? "المدرب" : "THE COACH"}
+        eyebrow={locale === "ar" ? "المدرب" : locale === "tr" ? "ANTRENÖR" : "THE COACH"}
         title={heading}
         subtitle={subline.join(" · ") || undefined}
       />
@@ -71,13 +73,13 @@ export default async function CoachPage({
           <div className="mx-auto grid max-w-5xl gap-12 px-6 sm:px-10 md:grid-cols-2">
             {philosophy && (
               <Reveal>
-                <SectionLabel number="—" title={locale === "ar" ? "فلسفة التدريب" : "TRAINING PHILOSOPHY"} />
+                <SectionLabel number="—" title={locale === "ar" ? "فلسفة التدريب" : locale === "tr" ? "ANTRENMAN FELSEFESİ" : "TRAINING PHILOSOPHY"} />
                 <p className="mt-6 text-balance text-xl leading-relaxed text-bone sm:text-2xl">{t(locale, philosophy)}</p>
               </Reveal>
             )}
             {vision && (
               <Reveal delay={0.1}>
-                <SectionLabel number="—" title={locale === "ar" ? "الرؤية" : "VISION"} />
+                <SectionLabel number="—" title={locale === "ar" ? "الرؤية" : locale === "tr" ? "VİZYON" : "VISION"} />
                 <p className="mt-6 text-balance text-xl leading-relaxed text-bone sm:text-2xl">{t(locale, vision)}</p>
               </Reveal>
             )}
@@ -89,11 +91,11 @@ export default async function CoachPage({
         <div className="mx-auto max-w-xl px-6 sm:px-10">
           <Reveal>
             <h2 className="font-heading text-balance text-3xl text-bone sm:text-4xl">
-              {locale === "ar" ? "تتبّع المسيرة كاملة" : "Follow the Full Journey"}
+              {locale === "ar" ? "تتبّع المسيرة كاملة" : locale === "tr" ? "Tüm Yolculuğu Takip Et" : "Follow the Full Journey"}
             </h2>
             <div className="mt-8 flex justify-center">
               <ButtonLink href={localePath(locale, "/legacy")} variant="primary">
-                {locale === "ar" ? "المسيرة" : "The Legacy"}
+                {locale === "ar" ? "المسيرة" : locale === "tr" ? "Miras" : "The Legacy"}
               </ButtonLink>
             </div>
           </Reveal>

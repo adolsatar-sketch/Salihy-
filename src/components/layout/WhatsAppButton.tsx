@@ -7,14 +7,16 @@ export function WhatsAppButton({ locale }: { locale: Locale }) {
   const message =
     locale === "ar"
       ? "السلام عليكم، أود الاستفسار عن التسجيل في أكاديمية صالحي."
-      : "Hello, I'd like to ask about registering at Salihy Academy.";
+      : locale === "tr"
+        ? "Merhaba, Salihy Akademisi'ne kayıt hakkında bilgi almak istiyorum."
+        : "Hello, I'd like to ask about registering at Salihy Academy.";
 
   return (
     <a
       href={buildWhatsappLink(message)}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={locale === "ar" ? "تواصل عبر واتساب" : "Contact via WhatsApp"}
+      aria-label={locale === "ar" ? "تواصل عبر واتساب" : locale === "tr" ? "WhatsApp üzerinden iletişime geçin" : "Contact via WhatsApp"}
       data-cursor-hover
       className="fixed bottom-6 end-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-active text-bone shadow-[0_8px_30px_rgba(178,15,32,0.45)] transition-transform duration-300 hover:scale-105 active:scale-95"
     >

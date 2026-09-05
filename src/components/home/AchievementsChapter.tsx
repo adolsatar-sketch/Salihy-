@@ -25,10 +25,10 @@ export function AchievementsChapter({ locale }: { locale: Locale }) {
   return (
     <section className="relative bg-charcoal/92 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
-        <SectionLabel number="03" title={locale === "ar" ? "الإنجازات" : "ACHIEVEMENTS"} />
+        <SectionLabel number="03" title={locale === "ar" ? "الإنجازات" : locale === "tr" ? "BAŞARILAR" : "ACHIEVEMENTS"} />
         <Reveal className="mt-6 max-w-2xl">
           <h2 className="font-heading text-balance text-3xl leading-tight text-bone sm:text-4xl md:text-5xl">
-            {locale === "ar" ? "لحظات من البطولات" : "Moments from the tournaments"}
+            {locale === "ar" ? "لحظات من البطولات" : locale === "tr" ? "Turnuvalardan anlar" : "Moments from the tournaments"}
           </h2>
         </Reveal>
 

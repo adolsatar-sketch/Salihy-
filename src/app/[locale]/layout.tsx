@@ -10,7 +10,7 @@ import { AmbientBackground } from "@/components/layout/AmbientBackground";
 import { TransitionProvider } from "@/components/transitions/TransitionProvider";
 import { IntroSplash } from "@/components/transitions/IntroSplash";
 import { getDictionary } from "@/i18n/dictionaries";
-import { SITE_URL } from "@/data/site";
+import { buildAlternates } from "@/lib/utils";
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -30,18 +30,14 @@ export async function generateMetadata({
     description:
       locale === "ar"
         ? "أكاديمية صالحي للكيوكوشنكاي في بغداد — تدريب احترافي، انضباط، ثقة وصناعة أبطال لجميع الأعمار."
-        : "Salihy Kyokushin Academy in Baghdad — professional training, discipline, confidence and champion-building for all ages.",
-    alternates: {
-      canonical: `${SITE_URL}/${locale}`,
-      languages: {
-        ar: `${SITE_URL}/ar`,
-        en: `${SITE_URL}/en`,
-      },
-    },
+        : locale === "tr"
+          ? "Bağdat'taki Salihy Kyokushin Akademisi — her yaş için profesyonel antrenman, disiplin, özgüven ve şampiyon yetiştirme."
+          : "Salihy Kyokushin Academy in Baghdad — professional training, discipline, confidence and champion-building for all ages.",
+    alternates: buildAlternates(locale, "/"),
     openGraph: {
       title: dict.meta.siteName,
       siteName: dict.meta.siteName,
-      locale: locale === "ar" ? "ar_IQ" : "en_US",
+      locale: locale === "ar" ? "ar_IQ" : locale === "tr" ? "tr_TR" : "en_US",
       type: "website",
       images: ["/assets/logo/logo-full.png"],
     },

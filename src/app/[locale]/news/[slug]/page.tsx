@@ -20,7 +20,7 @@ export async function generateMetadata({
   const post = newsPosts.find((p) => p.slug === slug);
   if (!post) return {};
   return {
-    title: `${t(locale, post.title)} | ${locale === "ar" ? "أكاديمية صالحي" : "Salihy Academy"}`,
+    title: `${t(locale, post.title)} | ${locale === "ar" ? "أكاديمية صالحي" : locale === "tr" ? "Salihy Akademisi" : "Salihy Academy"}`,
     description: t(locale, post.excerpt),
     alternates: buildAlternates(locale, `/news/${slug}`),
     openGraph: { title: t(locale, post.title), description: t(locale, post.excerpt) },

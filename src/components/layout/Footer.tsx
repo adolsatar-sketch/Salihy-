@@ -4,16 +4,23 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { primaryRoutes } from "@/lib/routes";
 import { t, localePath } from "@/lib/utils";
+import { BrandMark } from "@/components/motion/BrandMark";
 import { academyName, tagline } from "@/data/academy";
 import { address } from "@/data/contact";
-import { INSTAGRAM_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
+import { INSTAGRAM_URL, WAZE_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
 
 export function Footer({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
 
   return (
-    <footer className="border-t border-bone/10 bg-obsidian px-6 pb-10 pt-16 sm:px-10">
-      <div className="mx-auto max-w-6xl">
+    <footer className="relative overflow-hidden border-t border-bone/10 bg-obsidian px-6 pb-10 pt-16 sm:px-10">
+      <BrandMark
+        variant="emblem"
+        maxOpacity={0.04}
+        parallax={10}
+        className="absolute -bottom-[20%] -end-[10%] h-[26vmax] w-[26vmax] max-h-64 max-w-64"
+      />
+      <div className="relative z-10 mx-auto max-w-6xl">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
             <div className="flex items-center gap-3">
@@ -45,7 +52,7 @@ export function Footer({ locale }: { locale: Locale }) {
               </a>
               {WHATSAPP_ENABLED && (
                 <a
-                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : locale === "tr" ? "Merhaba" : "Hello")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-bone"
@@ -53,13 +60,16 @@ export function Footer({ locale }: { locale: Locale }) {
                   WhatsApp
                 </a>
               )}
+              <a href={WAZE_URL} target="_blank" rel="noopener noreferrer" className="hover:text-bone">
+                {dict.common.openInWaze}
+              </a>
             </div>
           </div>
         </div>
 
         <div className="mt-14 flex flex-col gap-3 border-t border-bone/10 pt-6 text-xs text-steel/70 sm:flex-row sm:items-center sm:justify-between">
           <p>{t(locale, academyName)}</p>
-          <p>© {new Date().getFullYear()} — {locale === "ar" ? "جميع الحقوق محفوظة" : "All rights reserved"}</p>
+          <p>© {new Date().getFullYear()} — {locale === "ar" ? "جميع الحقوق محفوظة" : locale === "tr" ? "Tüm hakları saklıdır" : "All rights reserved"}</p>
         </div>
       </div>
     </footer>

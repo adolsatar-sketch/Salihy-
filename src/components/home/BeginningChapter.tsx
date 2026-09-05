@@ -11,17 +11,19 @@ export function BeginningChapter({ locale }: { locale: Locale }) {
     <section className="relative bg-charcoal/92 py-24 sm:py-32">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 sm:px-10 md:grid-cols-[1fr_1.1fr] md:items-center md:gap-16">
         <div>
-          <SectionLabel number="01" title={locale === "ar" ? "البداية" : "THE BEGINNING"} />
+          <SectionLabel number="01" title={locale === "ar" ? "البداية" : locale === "tr" ? "BAŞLANGIÇ" : "THE BEGINNING"} />
           <Reveal className="mt-6" delay={0.05}>
             <h2 className="font-heading text-balance text-3xl leading-tight text-bone sm:text-4xl md:text-5xl">
-              {locale === "ar" ? "قبل الأكاديمية… كانت هناك سنوات" : "Before the academy, there were years"}
+              {locale === "ar" ? "قبل الأكاديمية… كانت هناك سنوات" : locale === "tr" ? "Akademiden önce… yıllar vardı" : "Before the academy, there were years"}
             </h2>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-steel sm:text-base">
               {locale === "ar"
                 ? "قبل أن يصبح هناك أكاديمية، كانت هناك سنوات من التدريب، النزالات، الانتصارات، الخسارات والانضباط."
-                : "Before there was an academy, there were years of training, fights, wins, losses, and discipline."}
+                : locale === "tr"
+                  ? "Bir akademi olmadan önce, yıllarca antrenman, mücadele, zaferler, yenilgiler ve disiplin vardı."
+                  : "Before there was an academy, there were years of training, fights, wins, losses, and discipline."}
             </p>
           </Reveal>
         </div>
@@ -35,7 +37,9 @@ export function BeginningChapter({ locale }: { locale: Locale }) {
                 alt={
                   locale === "ar"
                     ? "صورة أرشيفية قديمة للاعبين يتدربان على القتال، أحدهما يرتدي حزامًا أخضر"
-                    : "Archival photo of two athletes sparring, one wearing a green belt"
+                    : locale === "tr"
+                      ? "Biri yeşil kuşak takan iki sporcunun idman yaptığı arşiv fotoğrafı"
+                      : "Archival photo of two athletes sparring, one wearing a green belt"
                 }
                 fill
                 sizes="(min-width: 768px) 420px, 90vw"
@@ -51,7 +55,7 @@ export function BeginningChapter({ locale }: { locale: Locale }) {
                 transition={{ duration: 1.2, delay: 0.3 }}
               />
               <figcaption className="absolute bottom-3 start-3 font-heading text-[10px] tracking-[0.3em] text-bone/80">
-                ARCHIVE 01 — [{locale === "ar" ? "السنة" : "YEAR"}]
+                ARCHIVE 01 — [{locale === "ar" ? "السنة" : locale === "tr" ? "YIL" : "YEAR"}]
               </figcaption>
             </figure>
           </div>

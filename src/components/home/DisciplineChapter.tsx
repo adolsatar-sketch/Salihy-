@@ -13,7 +13,9 @@ export function DisciplineChapter({ locale }: { locale: Locale }) {
           alt={
             locale === "ar"
               ? "لاعب راكع على الأرض بزي أبيض وحزام أسود بانتظار نتيجة المباراة"
-              : "An athlete kneeling on the mat in a white gi and black belt, awaiting the match result"
+              : locale === "tr"
+                ? "Beyaz gi ve siyah kuşakla minderde diz çökmüş, maç sonucunu bekleyen bir sporcu"
+                : "An athlete kneeling on the mat in a white gi and black belt, awaiting the match result"
           }
           fill
           sizes="100vw"
@@ -25,7 +27,7 @@ export function DisciplineChapter({ locale }: { locale: Locale }) {
       <div className="relative z-10 mx-auto max-w-3xl px-6 text-center sm:px-10">
         <Reveal>
           <p className="font-heading text-xs tracking-[0.4em] text-steel">
-            {locale === "ar" ? "07 — الانضباط" : "07 — DISCIPLINE"}
+            {locale === "ar" ? "07 — الانضباط" : locale === "tr" ? "07 — DİSİPLİN" : "07 — DISCIPLINE"}
           </p>
           <h2 className="font-heading text-balance mt-6 text-3xl leading-snug text-bone sm:text-4xl md:text-5xl">
             {locale === "ar" ? (
@@ -33,6 +35,12 @@ export function DisciplineChapter({ locale }: { locale: Locale }) {
                 القوة ليست في الضربة وحدها.
                 <br />
                 القوة في السيطرة، الصبر، الاحترام والاستمرار.
+              </>
+            ) : locale === "tr" ? (
+              <>
+                Güç yalnızca vuruşta değildir.
+                <br />
+                Güç; kontrolde, sabırda, saygıda ve azimde saklıdır.
               </>
             ) : (
               <>

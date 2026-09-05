@@ -16,11 +16,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "الفيديوهات | أكاديمية صالحي" : "Videos | Salihy Academy";
+  const title = locale === "ar" ? "الفيديوهات | أكاديمية صالحي" : locale === "tr" ? "Videolar | Salihy Akademisi" : "Videos | Salihy Academy";
   const description =
     locale === "ar"
       ? "لقطات فيديو من تدريبات ونزالات وبطولات أكاديمية صالحي."
-      : "Video footage from Salihy Academy's training, fights, and tournaments.";
+      : locale === "tr"
+        ? "Salihy Akademisi'nin antrenman, mücadele ve turnuvalarından video görüntüleri."
+        : "Video footage from Salihy Academy's training, fights, and tournaments.";
   return {
     title,
     description,
@@ -39,7 +41,7 @@ export default async function VideosPage({
 
   return (
     <>
-      <PageHero number="08" eyebrow={locale === "ar" ? "الفيديوهات" : "VIDEOS"} title={locale === "ar" ? "الحركة لا تُختصر بالصورة" : "Motion Beyond the Still Frame"} />
+      <PageHero number="08" eyebrow={locale === "ar" ? "الفيديوهات" : locale === "tr" ? "VİDEOLAR" : "VIDEOS"} title={locale === "ar" ? "الحركة لا تُختصر بالصورة" : locale === "tr" ? "Hareket, Tek Bir Kareye Sığmaz" : "Motion Beyond the Still Frame"} />
 
       {videos.length > 0 ? (
         <VideoGrid locale={locale} />
