@@ -1,9 +1,7 @@
-import { buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
+import { buildWhatsappLink } from "@/data/site";
 import type { Locale } from "@/i18n/config";
 
 export function WhatsAppButton({ locale }: { locale: Locale }) {
-  if (!WHATSAPP_ENABLED) return null;
-
   const message =
     locale === "ar"
       ? "السلام عليكم، أود الاستفسار عن التسجيل في أكاديمية صالحي."

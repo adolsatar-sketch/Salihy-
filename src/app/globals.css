@@ -29,11 +29,13 @@
 
 html {
   background: var(--bg);
-  /* Smooth scrolling is handled by Lenis (see SmoothScrollProvider), not
-     CSS — `scroll-behavior: smooth` here would animate every programmatic
-     jump, including the browser's own Back/Forward scroll restoration,
-     which needs to land instantly. */
-  overflow-anchor: none;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 body {
@@ -67,28 +69,6 @@ html[lang="ar"] .font-heading {
   opacity: 1;
 }
 
-/* No `transform`, `filter`, `will-change: transform`, or `overflow`
-   other than visible here, on purpose: every one of those on an ancestor
-   either establishes a new containing block or turns it into a scroll
-   container, and both silently break `position: sticky` in its descendants
-   (the home page's scroll scenes) — the sticky element stops sticking, its
-   box collapses back to static flow mid-page, and the resulting layout
-   jump was making Lenis's scroll accounting snap the page back near the
-   top. Opacity alone reads as "receding" without any of that. */
-#page-viewport {
-  transition: opacity 0.6s ease;
-}
-
-html.menu-open #page-viewport {
-  opacity: 0.45;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #page-viewport {
-    transition: opacity 0.3s ease;
-  }
-}
-
 html[data-intro="pending"] #site-content {
   opacity: 0;
 }
@@ -96,18 +76,6 @@ html[data-intro="pending"] #site-content {
 html[data-intro="done"] #site-content {
   opacity: 1;
   transition: opacity 0.5s ease 0.05s;
-}
-
-/* Pure-CSS safety net: if JS never runs (or the intro script throws), the
-   content is guaranteed visible at 2.2s regardless — it never depends on
-   script execution to eventually show the page. */
-@keyframes force-reveal-site-content {
-  to {
-    opacity: 1;
-  }
-}
-#site-content {
-  animation: force-reveal-site-content 0s 2.2s forwards;
 }
 
 ::selection {

@@ -7,12 +7,10 @@ export type AchievementSubject = "coach" | "student";
 
 export type Achievement = {
   id: string;
-  // Undefined fields are simply not rendered anywhere — never shown as a
-  // bracketed placeholder. Fill them in once confirmed.
-  year?: string;
-  tournament?: Bi;
+  year: string;
+  tournament: Bi;
   place: Bi;
-  category?: Bi;
+  category: Bi;
   result: Bi;
   medal: MedalTier;
   scope: AchievementScope;
@@ -22,19 +20,19 @@ export type Achievement = {
   image: string;
 };
 
-// Every entry is grounded in real academy photography. Tournament names and
-// host cities visible on banners/flags in the photo itself are recorded as
-// fact; anything not legible or confirmed (exact year, precise age category,
-// an unbannered local tournament's name) is left undefined rather than
-// invented or shown as "[placeholder]".
+// Every entry below is grounded in real academy photography. Where a detail
+// (exact year, precise placing, or category) is not legible or confirmed,
+// it is intentionally left as an editable placeholder rather than invented.
 export const achievements: Achievement[] = [
   {
     id: "ach-saffron-karabuk",
+    year: "[السنة]",
     tournament: {
       ar: "البطولة الدولية الأولى للزعفران للكيوكوشنكاي",
       en: "1st International Saffron Kyokushin Championship",
     },
     place: { ar: "كارابوك، تركيا", en: "Karabük, Turkey" },
+    category: { ar: "[الفئة العمرية]", en: "[Age Category]" },
     result: { ar: "المركز الأول", en: "1st Place" },
     medal: "gold",
     scope: "individual",
@@ -48,6 +46,7 @@ export const achievements: Achievement[] = [
   },
   {
     id: "ach-budokaido-tokat",
+    year: "[السنة]",
     tournament: {
       ar: "بطولة بودوكايدو بين المحافظات — توكات",
       en: "Budokaido Inter-Provincial Championship — Tokat",
@@ -67,21 +66,27 @@ export const achievements: Achievement[] = [
   },
   {
     id: "ach-local-second",
+    year: "[السنة]",
+    tournament: { ar: "[اسم البطولة المحلية]", en: "[Local Tournament Name]" },
     place: { ar: "بغداد، العراق", en: "Baghdad, Iraq" },
+    category: { ar: "[الفئة العمرية]", en: "[Age Category]" },
     result: { ar: "المركز الثاني", en: "2nd Place" },
     medal: "silver",
     scope: "individual",
     region: "inside",
     subject: "student",
     note: {
-      ar: "ثنائي من لاعبي الأكاديمية يحتفلان بالوصول إلى منصة التتويج معًا في بطولة محلية.",
-      en: "Two academy athletes celebrating reaching the podium together at a local championship.",
+      ar: "ثنائي من لاعبي الأكاديمية يحتفلان بالوصول إلى منصة التتويج معًا.",
+      en: "Two academy athletes celebrating reaching the podium together.",
     },
     image: "/assets/gallery/gallery-02.jpg",
   },
   {
     id: "ach-team-podium-sweep",
+    year: "[السنة]",
+    tournament: { ar: "[اسم البطولة المحلية]", en: "[Local Tournament Name]" },
     place: { ar: "بغداد، العراق", en: "Baghdad, Iraq" },
+    category: { ar: "[الفئة العمرية]", en: "[Age Category]" },
     result: { ar: "المراكز الأول حتى الرابع", en: "1st through 4th Place" },
     medal: "gold",
     scope: "team",
@@ -102,9 +107,16 @@ export const medalLabel: Record<MedalTier, Bi> = {
   participation: { ar: "مشاركة", en: "Participation" },
 };
 
-// A short, honest headline for any achievement — its real tournament name
-// when known, otherwise its confirmed location. Never a placeholder token.
-export function achievementHeadline(a: Achievement, locale: "ar" | "en"): string {
-  if (a.tournament) return a.tournament[locale];
-  return a.place[locale];
-}
+export type CounterStat = {
+  value: string;
+  label: Bi;
+};
+
+// Placeholder counters — replace `value` with confirmed totals. Kept as
+// strings so a placeholder like "[العدد]" can be dropped in safely.
+export const counterStats: CounterStat[] = [
+  { value: "[العدد]", label: { ar: "بطولة محلية", en: "Local Tournaments" } },
+  { value: "[العدد]", label: { ar: "مشاركة دولية", en: "International Participations" } },
+  { value: "[العدد]", label: { ar: "ميدالية ذهبية", en: "Gold Medals" } },
+  { value: "[العدد]", label: { ar: "لاعب مسجّل", en: "Registered Athletes" } },
+];

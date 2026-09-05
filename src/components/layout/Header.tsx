@@ -5,15 +5,11 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { TransitionLink } from "@/components/transitions/TransitionLink";
-import { KineticBelt } from "@/components/motion/KineticBelt";
 import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { primaryRoutes, programRoutes } from "@/lib/routes";
 import { t, localePath, swapLocaleInPath } from "@/lib/utils";
-import { INSTAGRAM_URL, WHATSAPP_ENABLED, buildWhatsappLink } from "@/data/site";
-import { useVisitedRoutes } from "@/lib/useVisitedRoutes";
-import { useMediaQuery } from "@/lib/useMediaQuery";
-import { hasLenisInstance, startLenisScroll, stopLenisScroll } from "@/lib/lenisSingleton";
+import { INSTAGRAM_URL, buildWhatsappLink } from "@/data/site";
 
 export function Header({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -21,8 +17,12 @@ export function Header({ locale }: { locale: Locale }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [solid, setSolid] = useState(false);
+  const [activePreview, setActivePreview] = useState<string | null>(null);
   const [lastPathname, setLastPathname] = useState(pathname);
 
+  // Close the menu when the route changes — adjusted during render (the
+  // React-recommended way to reset state on a prop change) instead of an
+  // effect, so it never causes an extra render pass.
   if (pathname !== lastPathname) {
     setLastPathname(pathname);
     setMenuOpen(false);
@@ -41,26 +41,9 @@ export function Header({ locale }: { locale: Locale }) {
   }, []);
 
   useEffect(() => {
-    document.documentElement.classList.toggle("menu-open", menuOpen);
-
-    // Prefer pausing Lenis itself over `overflow: hidden` on <body>: toggling
-    // that while Lenis is running changes the viewport (the scrollbar
-    // disappears) mid-flight, which was observed making Lenis recompute its
-    // scroll limits and snap the page back near the top. `lenis.stop()`
-    // already fully blocks wheel-driven scroll, so it doesn't need help from
-    // overflow on desktop; touch devices have no Lenis instance at all, so
-    // overflow-hidden remains the only (and safe) way to lock scroll there.
-    if (hasLenisInstance()) {
-      if (menuOpen) stopLenisScroll();
-      else startLenisScroll();
-    } else {
-      document.body.style.overflow = menuOpen ? "hidden" : "";
-    }
-
+    document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
-      document.documentElement.classList.remove("menu-open");
-      if (hasLenisInstance()) startLenisScroll();
-      else document.body.style.overflow = "";
+      document.body.style.overflow = "";
     };
   }, [menuOpen]);
 
@@ -71,7 +54,7 @@ export function Header({ locale }: { locale: Locale }) {
     <>
       <header
         className={`fixed inset-x-0 top-0 z-[80] transition-transform duration-500 ${
-          hidden && !menuOpen ? "-translate-y-full" : "translate-y-0"
+          hidden ? "-translate-y-full" : "translate-y-0"
         }`}
       >
         <div
@@ -112,176 +95,120 @@ export function Header({ locale }: { locale: Locale }) {
               aria-label={menuOpen ? dict.nav.close : dict.nav.menu}
               data-cursor-hover
             >
-              <span className={`block h-px w-6 bg-bone transition-transform duration-300 ${menuOpen ? "translate-y-[6px] rotate-45" : ""}`} />
-              <span className={`block h-px w-6 bg-bone transition-opacity duration-300 ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-              <span className={`block h-px w-6 bg-bone transition-transform duration-300 ${menuOpen ? "-translate-y-[6px] -rotate-45" : ""}`} />
+              <span
+                className={`block h-px w-6 bg-bone transition-transform duration-300 ${menuOpen ? "translate-y-[6px] rotate-45" : ""}`}
+              />
+              <span
+                className={`block h-px w-6 bg-bone transition-opacity duration-300 ${menuOpen ? "opacity-0" : "opacity-100"}`}
+              />
+              <span
+                className={`block h-px w-6 bg-bone transition-transform duration-300 ${menuOpen ? "-translate-y-[6px] -rotate-45" : ""}`}
+              />
             </button>
           </div>
         </div>
       </header>
 
-      <AnimatePresence>{menuOpen && <DojoMap locale={locale} pathname={pathname} onClose={() => setMenuOpen(false)} />}</AnimatePresence>
-    </>
-  );
-}
-
-function DojoMap({ locale, pathname, onClose }: { locale: Locale; pathname: string; onClose: () => void }) {
-  const dict = getDictionary(locale);
-  const visited = useVisitedRoutes();
-  const [preview, setPreview] = useState<string | null>(null);
-  const isDesktop = useMediaQuery("(min-width: 640px)");
-
-  const sideOffset = locale === "ar" ? "-100%" : "100%";
-  const closedTransform = isDesktop ? { x: sideOffset, y: 0 } : { x: 0, y: "100%" };
-
-  return (
-    <>
-      {/* Scrim over whatever remains visible of the compressed page */}
-      <motion.button
-        type="button"
-        aria-label={dict.nav.close}
-        onClick={onClose}
-        className="fixed inset-0 z-[65] bg-obsidian/40"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-      />
-
-      {/* Live preview, desktop only — sits behind the panel */}
-      <div className="pointer-events-none fixed inset-y-0 start-0 end-[26rem] z-[66] hidden items-center justify-center lg:flex">
-        <AnimatePresence mode="wait">
-          {preview && (
-            <motion.div
-              key={preview}
-              className="relative aspect-[3/4] w-[26vw] max-w-md overflow-hidden rounded-sm"
-              initial={{ opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 0.9, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-            >
-              <Image src={preview} alt="" fill sizes="26vw" className="object-cover" />
-              <div className="absolute inset-0 bg-obsidian/20" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-
-      <motion.div
-        role="dialog"
-        aria-modal="true"
-        initial={closedTransform}
-        animate={{ x: 0, y: 0 }}
-        exit={closedTransform}
-        transition={{ duration: 0.5, ease: [0.65, 0, 0.35, 1] }}
-        className="fixed inset-x-0 bottom-0 z-[70] flex h-[88dvh] flex-col rounded-t-2xl bg-obsidian sm:inset-y-0 sm:end-0 sm:bottom-auto sm:h-auto sm:w-[26rem] sm:rounded-none sm:border-s sm:border-bone/10"
-      >
-        <div className="flex justify-center pt-3 sm:hidden">
-          <span className="h-1 w-10 rounded-full bg-bone/25" />
-        </div>
-        <div className="flex items-center justify-between px-6 pt-4 sm:pt-6 sm:px-8">
-          <span className="font-heading text-xs tracking-[0.4em] text-steel">
-            {locale === "ar" ? "خريطة الدوجو" : "DOJO MAP"}
-          </span>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label={dict.nav.close}
-            className="flex h-9 w-9 items-center justify-center text-bone"
-            data-cursor-hover
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ clipPath: "circle(0% at 100% 0%)" }}
+            animate={{ clipPath: "circle(150% at 100% 0%)" }}
+            exit={{ clipPath: "circle(0% at 100% 0%)" }}
+            transition={{ duration: 0.6, ease: [0.65, 0, 0.35, 1] }}
+            className="fixed inset-0 z-[70] bg-obsidian"
           >
-            ✕
-          </button>
-        </div>
-
-        <nav className="relative mt-6 flex-1 overflow-y-auto px-6 pb-6 sm:px-8">
-          <div className="relative ps-6">
-            <KineticBelt
-              d="M2 0 L2 100"
-              viewBox="0 0 4 100"
-              strokeWidth={1.4}
-              className="absolute inset-y-0 start-0 h-full w-1 text-bone/25"
-              showCrease={false}
-            />
-            <ul>
-              {primaryRoutes.map((route, i) => {
-                const href = localePath(locale, `/${route.path}`);
-                const isCurrent = pathname === href;
-                const isVisited = visited.has(href);
-                return (
-                  <motion.li
-                    key={route.path}
-                    initial={{ opacity: 0, x: locale === "ar" ? -12 : 12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.15 + i * 0.03, duration: 0.4 }}
-                    onMouseEnter={() => setPreview(route.preview)}
-                    onMouseLeave={() => setPreview(null)}
-                  >
-                    <TransitionLink
-                      href={href}
-                      className="group flex items-center gap-4 py-3"
-                      data-cursor-hover
+            <div className="mx-auto flex h-full max-w-6xl flex-col justify-center px-6 pb-10 pt-28 sm:px-10">
+              <nav className="grid gap-8 md:grid-cols-[1.3fr_1fr]">
+                <ul className="space-y-1">
+                  {primaryRoutes.map((route, i) => (
+                    <motion.li
+                      key={route.path}
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.08 + i * 0.04, duration: 0.5 }}
+                      onMouseEnter={() => setActivePreview(route.preview)}
+                      onMouseLeave={() => setActivePreview(null)}
                     >
-                      <span
-                        className={`h-1.5 w-1.5 shrink-0 rounded-full transition-colors ${
-                          isCurrent ? "bg-active" : isVisited ? "bg-bone/50" : "bg-bone/15"
-                        }`}
-                      />
-                      <span className="font-heading text-[10px] text-steel">{route.number}</span>
-                      <span
-                        className={`font-heading text-xl transition-colors sm:text-2xl ${
-                          isCurrent ? "text-active" : "text-bone group-hover:text-active"
-                        }`}
+                      <TransitionLink
+                        href={localePath(locale, `/${route.path}`)}
+                        className="group flex items-baseline gap-4 border-b border-bone/10 py-3 transition-colors hover:border-active"
+                        data-cursor-hover
                       >
-                        {t(locale, route.label)}
-                      </span>
-                    </TransitionLink>
-                  </motion.li>
-                );
-              })}
-            </ul>
-          </div>
+                        <span className="font-heading text-xs text-steel">{route.number}</span>
+                        <span className="font-heading text-2xl text-bone transition-colors group-hover:text-active sm:text-3xl">
+                          {t(locale, route.label)}
+                        </span>
+                      </TransitionLink>
+                    </motion.li>
+                  ))}
+                </ul>
 
-          <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-1 border-t border-bone/10 pt-6">
-            {programRoutes.map((route) => (
-              <TransitionLink
-                key={route.path}
-                href={localePath(locale, `/${route.path}`)}
-                className="py-1.5 text-sm text-steel transition-colors hover:text-bone"
-                data-cursor-hover
-              >
-                {t(locale, route.label)}
-              </TransitionLink>
-            ))}
-          </div>
-        </nav>
+                <div className="hidden md:block">
+                  <div className="relative aspect-[4/5] w-full overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      {activePreview ? (
+                        <motion.div
+                          key={activePreview}
+                          initial={{ opacity: 0, scale: 1.04 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.35 }}
+                          className="absolute inset-0"
+                        >
+                          <Image src={activePreview} alt="" fill sizes="400px" className="object-cover" />
+                        </motion.div>
+                      ) : (
+                        <div className="absolute inset-0 flex items-center justify-center bg-charcoal">
+                          <Image
+                            src="/assets/logo/logo-mark.png"
+                            alt=""
+                            width={160}
+                            height={160}
+                            className="opacity-40"
+                          />
+                        </div>
+                      )}
+                    </AnimatePresence>
+                  </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-bone/10 px-6 py-6 sm:px-8">
-          <div className="flex gap-5 text-xs tracking-[0.15em] text-steel">
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-bone" data-cursor-hover>
-              INSTAGRAM
-            </a>
-            {WHATSAPP_ENABLED && (
-              <a
-                href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-bone"
-                data-cursor-hover
-              >
-                WHATSAPP
-              </a>
-            )}
-          </div>
-          <TransitionLink
-            href={localePath(locale, "/registration")}
-            className="border border-active bg-active px-5 py-2.5 text-xs tracking-[0.2em] text-bone transition-colors hover:bg-blood"
-            data-cursor-hover
-          >
-            {dict.common.register}
-          </TransitionLink>
-        </div>
-      </motion.div>
+                  <ul className="mt-6 grid grid-cols-2 gap-x-6 gap-y-2">
+                    {programRoutes.map((route) => (
+                      <li key={route.path}>
+                        <TransitionLink
+                          href={localePath(locale, `/${route.path}`)}
+                          className="block py-1 text-sm text-steel transition-colors hover:text-bone"
+                          data-cursor-hover
+                        >
+                          {t(locale, route.label)}
+                        </TransitionLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </nav>
+
+              <div className="mt-10 flex flex-wrap items-center gap-6 border-t border-bone/10 pt-6 text-xs tracking-[0.2em] text-steel">
+                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-bone" data-cursor-hover>
+                  INSTAGRAM
+                </a>
+                <a
+                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-bone"
+                  data-cursor-hover
+                >
+                  WHATSAPP
+                </a>
+                <TransitionLink href={localePath(locale, "/contact")} className="hover:text-bone" data-cursor-hover>
+                  {dict.nav.contact.toUpperCase()}
+                </TransitionLink>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

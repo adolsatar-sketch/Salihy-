@@ -6,9 +6,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
 import { CustomCursor } from "@/components/layout/CustomCursor";
-import { TransitionProvider, TransitionViewport } from "@/components/transitions/TransitionProvider";
+import { TransitionProvider } from "@/components/transitions/TransitionProvider";
 import { IntroSplash } from "@/components/transitions/IntroSplash";
-import { SmoothScrollProvider } from "@/components/motion/SmoothScrollProvider";
 import { getDictionary } from "@/i18n/dictionaries";
 import { SITE_URL } from "@/data/site";
 
@@ -60,20 +59,18 @@ export default async function LocaleLayout({
 
   return (
     <MotionConfig reducedMotion="user">
-      <SmoothScrollProvider>
-        <TransitionProvider locale={locale}>
-          <LocaleAttributes locale={locale} />
-          <div id="site-content" className="relative">
-            <Header locale={locale} />
-            <TransitionViewport>{children}</TransitionViewport>
-            <Footer locale={locale} />
-            <WhatsAppButton locale={locale} />
-          </div>
-        </TransitionProvider>
-      </SmoothScrollProvider>
-      <IntroSplash locale={locale} />
-      <CustomCursor />
-      <div className="grain-layer" />
+      <TransitionProvider>
+        <LocaleAttributes locale={locale} />
+        <IntroSplash locale={locale} />
+        <div id="site-content" className="relative">
+          <Header locale={locale} />
+          <main className="relative">{children}</main>
+          <Footer locale={locale} />
+          <WhatsAppButton locale={locale} />
+        </div>
+        <CustomCursor />
+        <div className="grain-layer" />
+      </TransitionProvider>
     </MotionConfig>
   );
 }
