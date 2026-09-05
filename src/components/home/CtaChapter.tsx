@@ -25,7 +25,7 @@ export function CtaChapter({ locale }: { locale: Locale }) {
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 text-center sm:px-10">
         <Reveal>
-          <p className="font-heading text-xs tracking-[0.4em] text-steel">09 — {locale === "ar" ? "ابدأ الآن" : locale === "tr" ? "BAŞLA" : "BEGIN"}</p>
+          <p className="font-heading text-xs tracking-[0.4em] text-steel">10 — {locale === "ar" ? "ابدأ الآن" : locale === "tr" ? "BAŞLA" : "BEGIN"}</p>
           <h2 className="font-heading text-balance mt-6 text-3xl leading-tight text-bone sm:text-4xl md:text-5xl">
             {locale === "ar" ? "كل بطل بدأ بخطوة أولى." : locale === "tr" ? "Her şampiyon ilk adımla başladı." : "Every champion started with a first step."}
           </h2>

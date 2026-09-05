@@ -16,7 +16,7 @@ export function ProgramsChapter({ locale }: { locale: Locale }) {
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <SectionLabel number="06" title={locale === "ar" ? "البرامج" : locale === "tr" ? "PROGRAMLAR" : "PROGRAMS"} />
+            <SectionLabel number="07" title={locale === "ar" ? "البرامج" : locale === "tr" ? "PROGRAMLAR" : "PROGRAMS"} />
             <Reveal className="mt-6">
               <h2 className="font-heading text-balance max-w-xl text-3xl leading-tight text-bone sm:text-4xl md:text-5xl">
                 {locale === "ar" ? "مسار لكل مرحلة عمرية" : locale === "tr" ? "Her yaş dönemi için bir yol" : "A path for every stage of life"}

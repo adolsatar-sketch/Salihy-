@@ -7,6 +7,7 @@ import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ButtonLink } from "@/components/ui/Button";
 import { t, localePath, buildAlternates } from "@/lib/utils";
 import { coachProfile, philosophy, vision } from "@/data/coach";
+import { ChampionshipRoute } from "@/components/coach/ChampionshipRoute";
 
 export async function generateMetadata({
   params,
@@ -18,10 +19,10 @@ export async function generateMetadata({
   const title = locale === "ar" ? "المدرب | أكاديمية صالحي" : locale === "tr" ? "Antrenör | Salihy Akademisi" : "The Coach | Salihy Academy";
   const description =
     locale === "ar"
-      ? "المدرب الذي يقود أكاديمية صالحي للكيوكوشنكاي في بغداد."
+      ? "مدرب أكاديمية صالحي للكيوكوشنكاي في بغداد — بطل بغداد والعراق وتركيا وأوروبا، وحكم معتمد منذ بداية مسيرته عام 2009."
       : locale === "tr"
-        ? "Bağdat'taki Salihy Kyokushin Akademisi'ne liderlik eden antrenör."
-        : "The coach leading Salihy Kyokushin Academy in Baghdad.";
+        ? "Bağdat'taki Salihy Kyokushin Akademisi'nin antrenörü — Bağdat, Irak, Türkiye ve Avrupa şampiyonu, 2009'dan bu yana onaylı hakem."
+        : "The coach leading Salihy Kyokushin Academy in Baghdad — Baghdad, Iraq, Turkey and European champion, and a certified referee since his journey began in 2009.";
   return {
     title,
     description,
@@ -67,6 +68,8 @@ export default async function CoachPage({
           </Reveal>
         </div>
       </section>
+
+      <ChampionshipRoute locale={locale} />
 
       {(philosophy || vision) && (
         <section className="relative bg-obsidian/92 py-24 sm:py-32">
