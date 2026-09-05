@@ -1,9 +1,14 @@
 import type { Bi } from "@/lib/utils";
 
-export const coachProfile = {
-  fullName: { ar: "[الاسم الكامل]", en: "[Full Name]" } as Bi,
-  rankAndBelt: { ar: "[الرتبة والحزام]", en: "[Rank & Belt]" } as Bi,
-  yearsOfExperience: { ar: "[سنوات الخبرة]", en: "[Years of Experience]" } as Bi,
+// Personal details left undefined until confirmed — never rendered as a
+// bracketed placeholder. Fill them in here once the academy confirms them.
+export const coachProfile: {
+  fullName?: Bi;
+  rankAndBelt?: Bi;
+  yearsOfExperience?: Bi;
+  portrait: string;
+  portraitAlt: Bi;
+} = {
   portrait: "/assets/gallery/gallery-07.jpg",
   portraitAlt: {
     ar: "مدرب أكاديمية صالحي يقف بزي الكيوكوشنكاي إلى جانب أحد اللاعبين حاملًا كأس بطولة",
@@ -17,7 +22,7 @@ export const bioIntro: Bi = {
 };
 
 export type CareerMilestone = {
-  year: string;
+  year?: string;
   title: Bi;
   description: Bi;
   image?: string;
@@ -25,7 +30,6 @@ export type CareerMilestone = {
 
 export const careerTimeline: CareerMilestone[] = [
   {
-    year: "[السنة]",
     title: { ar: "البداية في الكيوكوشنكاي", en: "The Beginning in Kyokushin" },
     description: {
       ar: "أولى الخطوات داخل القاعة، حيث بدأ التمرين اليومي والانضباط يشكلان أساس المسيرة.",
@@ -34,7 +38,6 @@ export const careerTimeline: CareerMilestone[] = [
     image: "/assets/gallery/gallery-04.jpg",
   },
   {
-    year: "[السنة]",
     title: { ar: "أول بطولة", en: "First Tournament" },
     description: {
       ar: "أول اختبار حقيقي على الحلبة، وأول درس في ضغط المنافسة واتخاذ القرار في اللحظة.",
@@ -42,7 +45,6 @@ export const careerTimeline: CareerMilestone[] = [
     },
   },
   {
-    year: "[السنة]",
     title: { ar: "مشاركات دولية", en: "International Participation" },
     description: {
       ar: "تمثيل العراق خارج الحدود، ومواجهة مستويات ومدارس قتالية مختلفة صقلت الأسلوب والخبرة.",
@@ -51,7 +53,6 @@ export const careerTimeline: CareerMilestone[] = [
     image: "/assets/gallery/gallery-05.jpg",
   },
   {
-    year: "[السنة]",
     title: { ar: "الانتقال من لاعب إلى مدرب", en: "From Fighter to Coach" },
     description: {
       ar: "قرار تحويل سنوات الخبرة إلى منهج تدريبي، ونقل ما تعلّمه على الحلبة إلى جيل جديد من اللاعبين.",
@@ -60,7 +61,6 @@ export const careerTimeline: CareerMilestone[] = [
     image: "/assets/gallery/gallery-06.jpg",
   },
   {
-    year: "[السنة]",
     title: { ar: "تأسيس أكاديمية صالحي", en: "Founding Salihy Academy" },
     description: {
       ar: "ولادة مساحة تدريب متكاملة تحمل فلسفة واضحة: الانضباط أولًا، ثم البطولة.",

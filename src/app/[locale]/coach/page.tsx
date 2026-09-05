@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
+import { buildAlternates, t } from "@/lib/utils";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { ButtonLink } from "@/components/ui/Button";
-import { t, localePath, buildAlternates } from "@/lib/utils";
+import { localePath } from "@/lib/utils";
 import { coachProfile, bioIntro, philosophy, vision } from "@/data/coach";
 
 export async function generateMetadata({
@@ -38,9 +39,14 @@ export default async function CoachPage({
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
 
+  const heading = coachProfile.fullName ? t(locale, coachProfile.fullName) : locale === "ar" ? "المدرب" : "The Coach";
+  const subline = [coachProfile.rankAndBelt, coachProfile.yearsOfExperience]
+    .filter((v): v is NonNullable<typeof v> => Boolean(v))
+    .map((v) => t(locale, v));
+
   return (
     <>
-      <section className="relative flex min-h-[90dvh] items-end overflow-hidden bg-obsidian">
+      <section className="relative flex min-h-[92dvh] items-end overflow-hidden bg-obsidian">
         <div className="absolute inset-0">
           <Image
             src={coachProfile.portrait}
@@ -48,29 +54,26 @@ export default async function CoachPage({
             fill
             priority
             sizes="100vw"
-            className="object-cover object-[50%_20%]"
+            className="object-cover object-[50%_15%]"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/60 to-obsidian/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/55 to-obsidian/10" />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-20 pt-40 sm:px-10">
+        <div className="relative z-10 mx-auto w-full max-w-3xl px-6 pb-20 pt-40 sm:px-10">
           <SectionLabel number="01" title={locale === "ar" ? "المدرب" : "THE COACH"} className="mb-6" />
           <Reveal>
-            <h1 className="font-heading text-balance text-4xl text-bone xs:text-5xl sm:text-6xl md:text-7xl">
-              {t(locale, coachProfile.fullName)}
-            </h1>
+            <h1 className="font-heading text-balance text-4xl text-bone xs:text-5xl sm:text-6xl">{heading}</h1>
           </Reveal>
-          <Reveal delay={0.08}>
-            <p className="mt-4 text-sm tracking-wide text-steel sm:text-base">
-              {t(locale, coachProfile.rankAndBelt)} · {t(locale, coachProfile.yearsOfExperience)}{" "}
-              {locale === "ar" ? "خبرة" : "experience"}
-            </p>
-          </Reveal>
+          {subline.length > 0 && (
+            <Reveal delay={0.08}>
+              <p className="mt-4 text-sm tracking-wide text-steel sm:text-base">{subline.join(" · ")}</p>
+            </Reveal>
+          )}
         </div>
       </section>
 
       <section className="relative bg-charcoal py-24 sm:py-32">
-        <div className="mx-auto max-w-3xl px-6 sm:px-10">
+        <div className="mx-auto max-w-2xl px-6 sm:px-10">
           <Reveal>
             <p className="text-balance text-lg leading-relaxed text-bone sm:text-xl">{t(locale, bioIntro)}</p>
           </Reveal>
@@ -78,7 +81,7 @@ export default async function CoachPage({
       </section>
 
       <section className="relative bg-obsidian py-24 sm:py-32">
-        <div className="mx-auto grid max-w-5xl gap-12 px-6 sm:px-10 md:grid-cols-2">
+        <div className="mx-auto grid max-w-4xl gap-16 px-6 sm:px-10 md:grid-cols-2">
           <Reveal>
             <SectionLabel number="—" title={locale === "ar" ? "فلسفة التدريب" : "TRAINING PHILOSOPHY"} />
             <p className="mt-6 text-balance text-xl leading-relaxed text-bone sm:text-2xl">{t(locale, philosophy)}</p>

@@ -5,7 +5,7 @@ import type { Locale } from "@/i18n/config";
 import { getDictionary } from "@/i18n/dictionaries";
 import { t } from "@/lib/utils";
 import { programs } from "@/data/programs";
-import { buildWhatsappLink } from "@/data/site";
+import { buildWhatsappLink, WHATSAPP_ENABLED, INSTAGRAM_URL } from "@/data/site";
 import { ExternalButtonLink } from "@/components/ui/Button";
 
 const inputField =
@@ -105,9 +105,15 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
           {submitted}
         </pre>
         <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <ExternalButtonLink href={buildWhatsappLink(submitted)} target="_blank" rel="noopener noreferrer" variant="primary">
-            {dict.common.sendWhatsapp}
-          </ExternalButtonLink>
+          {WHATSAPP_ENABLED ? (
+            <ExternalButtonLink href={buildWhatsappLink(submitted)} target="_blank" rel="noopener noreferrer" variant="primary">
+              {dict.common.sendWhatsapp}
+            </ExternalButtonLink>
+          ) : (
+            <ExternalButtonLink href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" variant="primary">
+              {locale === "ar" ? "تواصل عبر إنستغرام" : "Contact via Instagram"}
+            </ExternalButtonLink>
+          )}
           <button
             type="button"
             onClick={() => {

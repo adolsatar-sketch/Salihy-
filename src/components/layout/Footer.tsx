@@ -6,7 +6,7 @@ import { primaryRoutes } from "@/lib/routes";
 import { t, localePath } from "@/lib/utils";
 import { academyName, tagline } from "@/data/academy";
 import { address } from "@/data/contact";
-import { INSTAGRAM_URL, buildWhatsappLink } from "@/data/site";
+import { INSTAGRAM_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
 
 export function Footer({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -43,14 +43,16 @@ export function Footer({ locale }: { locale: Locale }) {
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="hover:text-bone">
                 Instagram
               </a>
-              <a
-                href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-bone"
-              >
-                WhatsApp
-              </a>
+              {WHATSAPP_ENABLED && (
+                <a
+                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-bone"
+                >
+                  WhatsApp
+                </a>
+              )}
             </div>
           </div>
         </div>
