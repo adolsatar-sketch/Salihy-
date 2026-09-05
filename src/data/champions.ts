@@ -2,33 +2,29 @@ import type { Bi } from "@/lib/utils";
 
 export type Champion = {
   slug: string;
-  name: Bi;
-  age: string;
-  belt: Bi;
+  // Personal identity fields (name, age, belt, participation count) are
+  // intentionally omitted until the academy confirms them for each athlete —
+  // never shown as a "[placeholder]". Only the confirmed result and
+  // tournament are used to caption these real photographs.
+  name?: Bi;
+  age?: string;
+  belt?: Bi;
   tournament: Bi;
   result: Bi;
-  participations: string;
+  participations?: string;
   image: string;
   imageAlt: Bi;
   story: Bi;
 };
 
-// Real athletes from the academy's tournament photography. Personal details
-// that are not publicly confirmed (full name, exact age, tally of
-// participations) are marked as editable placeholders rather than invented —
-// swap them in as the academy confirms each athlete's profile.
 export const champions: Champion[] = [
   {
     slug: "champion-01",
-    name: { ar: "[اسم اللاعب]", en: "[Athlete Name]" },
-    age: "[العمر]",
-    belt: { ar: "[الحزام]", en: "[Belt]" },
     tournament: {
       ar: "البطولة الدولية الأولى للزعفران، كارابوك",
       en: "1st International Saffron Championship, Karabük",
     },
     result: { ar: "المركز الأول", en: "1st Place" },
-    participations: "[عدد المشاركات]",
     image: "/assets/gallery/gallery-05.jpg",
     imageAlt: {
       ar: "لاعب يرفع كأس البطولة ملتفًا بعلم العراق على منصة التتويج",
@@ -41,15 +37,12 @@ export const champions: Champion[] = [
   },
   {
     slug: "champion-02",
-    name: { ar: "[اسم اللاعب]", en: "[Athlete Name]" },
-    age: "[العمر]",
     belt: { ar: "الحزام الأسود", en: "Black Belt" },
     tournament: {
       ar: "بطولة بودوكايدو بين المحافظات، توكات",
       en: "Budokaido Inter-Provincial Championship, Tokat",
     },
     result: { ar: "المركز الأول", en: "1st Place" },
-    participations: "[عدد المشاركات]",
     image: "/assets/gallery/gallery-06.jpg",
     imageAlt: {
       ar: "لاعب يقف على قمة منصة التتويج حاملاً كأسًا وميدالية ذهبية",
@@ -62,12 +55,8 @@ export const champions: Champion[] = [
   },
   {
     slug: "champion-03",
-    name: { ar: "[اسم اللاعب]", en: "[Athlete Name]" },
-    age: "[العمر]",
-    belt: { ar: "[الحزام]", en: "[Belt]" },
-    tournament: { ar: "[اسم البطولة المحلية]", en: "[Local Tournament Name]" },
+    tournament: { ar: "بطولة محلية", en: "Local Championship" },
     result: { ar: "المركز الثاني", en: "2nd Place" },
-    participations: "[عدد المشاركات]",
     image: "/assets/gallery/gallery-02.jpg",
     imageAlt: {
       ar: "لاعبان بزي أبيض يحملان كأس المركز الثاني والميداليات",
@@ -80,12 +69,8 @@ export const champions: Champion[] = [
   },
   {
     slug: "champion-04",
-    name: { ar: "[اسم اللاعب]", en: "[Athlete Name]" },
-    age: "[العمر]",
-    belt: { ar: "[الحزام]", en: "[Belt]" },
-    tournament: { ar: "[اسم البطولة المحلية]", en: "[Local Tournament Name]" },
-    result: { ar: "المركز الأول", en: "1st Place" },
-    participations: "[عدد المشاركات]",
+    tournament: { ar: "بطولة محلية", en: "Local Championship" },
+    result: { ar: "المراكز الأول حتى الرابع", en: "1st through 4th Place" },
     image: "/assets/gallery/gallery-08.jpg",
     imageAlt: {
       ar: "لاعب ضمن فريق حصد المراكز الأربعة الأولى في بطولة محلية",

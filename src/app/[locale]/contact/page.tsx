@@ -6,7 +6,7 @@ import { ExternalButtonLink } from "@/components/ui/Button";
 import { t, buildAlternates } from "@/lib/utils";
 import { address, mapEmbedSrc, mapLinkSrc, trainingDays, generalNote } from "@/data/contact";
 import { weeklySlots, scheduleNote } from "@/data/schedule";
-import { INSTAGRAM_URL, buildWhatsappLink } from "@/data/site";
+import { INSTAGRAM_URL, buildWhatsappLink, WHATSAPP_ENABLED } from "@/data/site";
 import { getDictionary } from "@/i18n/dictionaries";
 
 export async function generateMetadata({
@@ -107,15 +107,22 @@ export default async function ContactPage({
             </div>
 
             <div className="mt-10 flex flex-wrap gap-4">
+              {WHATSAPP_ENABLED && (
+                <ExternalButtonLink
+                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="primary"
+                >
+                  {dict.common.whatsappContact}
+                </ExternalButtonLink>
+              )}
               <ExternalButtonLink
-                href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                href={INSTAGRAM_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                variant="primary"
+                variant={WHATSAPP_ENABLED ? "outline" : "primary"}
               >
-                {dict.common.whatsappContact}
-              </ExternalButtonLink>
-              <ExternalButtonLink href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" variant="outline">
                 Instagram
               </ExternalButtonLink>
             </div>

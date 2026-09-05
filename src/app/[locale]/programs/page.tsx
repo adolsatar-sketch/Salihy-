@@ -4,7 +4,8 @@ import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
 import { programs } from "@/data/programs";
 import { Reveal } from "@/components/ui/Reveal";
 import { TransitionLink } from "@/components/transitions/TransitionLink";
-import { localePath, t, buildAlternates } from "@/lib/utils";
+import { KineticBelt } from "@/components/motion/KineticBelt";
+import { localePath, t, buildAlternates, cn } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -43,35 +44,63 @@ export default async function ProgramsPage({
             <h1 className="font-heading text-balance mt-6 text-4xl text-bone sm:text-5xl md:text-6xl">
               {locale === "ar" ? "مسار لكل مرحلة عمرية" : "A Path for Every Stage of Life"}
             </h1>
+            <p className="mt-4 text-sm text-steel">
+              {locale === "ar" ? "اختر نقطتك على المسار" : "Choose your point on the path"}
+            </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="relative bg-obsidian pb-28">
-        <div className="mx-auto grid max-w-6xl gap-px overflow-hidden border border-bone/10 px-0 sm:grid-cols-2 sm:px-10 lg:grid-cols-3">
-          {programs.map((program, i) => (
-            <Reveal key={program.slug} delay={i * 0.05}>
-              <TransitionLink
-                href={localePath(locale, `/programs/${program.slug}`)}
-                className="group relative block aspect-[4/5] overflow-hidden bg-charcoal"
-                data-cursor-hover
-              >
-                <Image
-                  src={program.heroImage}
-                  alt={t(locale, program.heroImageAlt)}
-                  fill
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover opacity-70 transition-all duration-700 group-hover:scale-105 group-hover:opacity-90"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <p className="font-heading text-xl text-bone">{t(locale, program.shortTitle)}</p>
-                  <p className="mt-1 text-xs text-steel">{t(locale, program.ageRange)}</p>
-                  <p className="mt-3 max-w-xs text-xs leading-relaxed text-steel/80">{t(locale, program.summary)}</p>
-                </div>
-              </TransitionLink>
-            </Reveal>
-          ))}
+      <section className="relative bg-obsidian pb-28 sm:pb-36">
+        <div className="mx-auto max-w-5xl px-6 sm:px-10">
+          <div className="relative">
+            <KineticBelt
+              d="M2 0 L2 100"
+              viewBox="0 0 4 100"
+              strokeWidth={1.4}
+              className="absolute inset-y-0 start-1/2 hidden h-full w-1 -translate-x-1/2 text-bone/15 sm:block"
+              showCrease={false}
+            />
+            <ol className="relative space-y-10 sm:space-y-16">
+              {programs.map((program, i) => {
+                const flip = i % 2 === 1;
+                return (
+                  <li key={program.slug}>
+                    <Reveal delay={i * 0.04}>
+                      <TransitionLink
+                        href={localePath(locale, `/programs/${program.slug}`)}
+                        data-cursor-hover
+                        className="group grid items-center gap-6 sm:grid-cols-2 sm:gap-12"
+                      >
+                        <div className={cn("relative aspect-[16/10] overflow-hidden", flip && "sm:order-2")}>
+                          <Image
+                            src={program.heroImage}
+                            alt={t(locale, program.heroImageAlt)}
+                            fill
+                            sizes="(min-width: 640px) 45vw, 100vw"
+                            className="object-cover opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:opacity-100"
+                          />
+                          <div className="absolute inset-0 bg-obsidian/10 transition-opacity duration-500 group-hover:opacity-0" />
+                        </div>
+                        <div className={cn(flip && "sm:order-1 sm:text-end")}>
+                          <span className="font-heading text-[11px] tracking-[0.4em] text-active">
+                            {String(i + 1).padStart(2, "0")}
+                          </span>
+                          <p className="font-heading mt-2 text-2xl text-bone transition-colors group-hover:text-active sm:text-3xl">
+                            {t(locale, program.shortTitle)}
+                          </p>
+                          <p className="mt-1 text-xs tracking-[0.15em] text-steel">{t(locale, program.ageRange)}</p>
+                          <p className={cn("mt-3 max-w-sm text-sm leading-relaxed text-steel/80", flip && "sm:ms-auto")}>
+                            {t(locale, program.summary)}
+                          </p>
+                        </div>
+                      </TransitionLink>
+                    </Reveal>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         </div>
       </section>
     </>

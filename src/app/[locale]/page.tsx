@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import { isLocale, defaultLocale, type Locale } from "@/i18n/config";
 import { buildAlternates } from "@/lib/utils";
 import { HeroChapter } from "@/components/home/HeroChapter";
-import { BeginningChapter } from "@/components/home/BeginningChapter";
-import { FighterChapter } from "@/components/home/FighterChapter";
-import { AchievementsChapter } from "@/components/home/AchievementsChapter";
-import { CoachTransitionChapter } from "@/components/home/CoachTransitionChapter";
-import { AcademyChapter } from "@/components/home/AcademyChapter";
-import { ProgramsChapter } from "@/components/home/ProgramsChapter";
+import { OriginScene } from "@/components/home/OriginScene";
+import { ImpactScene } from "@/components/home/ImpactScene";
+import { ProofScene } from "@/components/home/ProofScene";
+import { TransformationScene } from "@/components/home/TransformationScene";
+import { NewGenerationScene } from "@/components/home/NewGenerationScene";
+import { EnterDojoScene } from "@/components/home/EnterDojoScene";
 import { DisciplineChapter } from "@/components/home/DisciplineChapter";
 import { ChampionsChapter } from "@/components/home/ChampionsChapter";
 import { CtaChapter } from "@/components/home/CtaChapter";
@@ -48,12 +48,12 @@ export default async function HomePage({
   return (
     <>
       <HeroChapter locale={locale} />
-      <BeginningChapter locale={locale} />
-      <FighterChapter locale={locale} />
-      <AchievementsChapter locale={locale} />
-      <CoachTransitionChapter locale={locale} />
-      <AcademyChapter locale={locale} />
-      <ProgramsChapter locale={locale} />
+      <OriginScene locale={locale} />
+      <ImpactScene locale={locale} />
+      <ProofScene locale={locale} />
+      <TransformationScene locale={locale} />
+      <NewGenerationScene locale={locale} />
+      <EnterDojoScene locale={locale} />
       <DisciplineChapter locale={locale} />
       <ChampionsChapter locale={locale} />
       <CtaChapter locale={locale} />

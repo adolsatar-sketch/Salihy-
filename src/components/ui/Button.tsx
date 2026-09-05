@@ -9,6 +9,7 @@ const variants = {
   primary: "bg-active text-bone hover:bg-blood",
   outline: "border border-bone/30 text-bone hover:border-bone",
   ghost: "text-bone/80 hover:text-bone",
+  dark: "border border-charcoal/25 text-charcoal hover:border-charcoal hover:bg-charcoal hover:text-bone",
 };
 
 type CommonProps = {

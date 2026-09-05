@@ -1,12 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import type { Locale } from "@/i18n/config";
 import { Reveal } from "@/components/ui/Reveal";
 import { ButtonLink, ExternalButtonLink } from "@/components/ui/Button";
 import { getDictionary } from "@/i18n/dictionaries";
 import { localePath } from "@/lib/utils";
-import { buildWhatsappLink } from "@/data/site";
+import { buildWhatsappLink, WHATSAPP_ENABLED, INSTAGRAM_URL } from "@/data/site";
 
 export function CtaChapter({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -17,9 +16,15 @@ export function CtaChapter({ locale }: { locale: Locale }) {
 
   return (
     <section className="relative overflow-hidden bg-obsidian py-28 sm:py-36">
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.06]">
-        <Image src="/assets/logo/logo-mark.png" alt="" width={900} height={900} />
-      </div>
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 m-auto h-64 w-64 text-bone/[0.07]"
+        viewBox="0 0 100 100"
+      >
+        <path d="M20 30 C 45 15, 55 45, 80 30" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+        <path d="M20 70 C 45 85, 55 55, 80 70" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="50" cy="50" r="4" fill="currentColor" />
+      </svg>
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 text-center sm:px-10">
         <Reveal>
@@ -34,9 +39,15 @@ export function CtaChapter({ locale }: { locale: Locale }) {
             <ButtonLink href={localePath(locale, "/registration")} variant="primary">
               {dict.common.bookTrial}
             </ButtonLink>
-            <ExternalButtonLink href={buildWhatsappLink(message)} target="_blank" rel="noopener noreferrer" variant="outline">
-              {dict.common.whatsappContact}
-            </ExternalButtonLink>
+            {WHATSAPP_ENABLED ? (
+              <ExternalButtonLink href={buildWhatsappLink(message)} target="_blank" rel="noopener noreferrer" variant="outline">
+                {dict.common.whatsappContact}
+              </ExternalButtonLink>
+            ) : (
+              <ExternalButtonLink href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" variant="outline">
+                Instagram
+              </ExternalButtonLink>
+            )}
           </div>
         </Reveal>
       </div>

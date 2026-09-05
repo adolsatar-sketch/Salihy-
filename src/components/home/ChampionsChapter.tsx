@@ -24,7 +24,7 @@ export function ChampionsChapter({ locale }: { locale: Locale }) {
           {champions.map((champion, i) => (
             <Reveal key={champion.slug} delay={i * 0.07}>
               <TransitionLink
-                href={localePath(locale, `/champions#${champion.slug}`)}
+                href={`${localePath(locale, "/champions")}?player=${champion.slug}`}
                 className="group block"
                 data-cursor-hover
               >
@@ -38,7 +38,7 @@ export function ChampionsChapter({ locale }: { locale: Locale }) {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-transparent to-transparent" />
                 </div>
-                <p className="font-heading mt-3 text-sm text-bone">{t(locale, champion.name)}</p>
+                <p className="font-heading mt-3 text-sm text-bone">{t(locale, champion.tournament)}</p>
                 <p className="text-xs text-gold">{t(locale, champion.result)}</p>
               </TransitionLink>
             </Reveal>
