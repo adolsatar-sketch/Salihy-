@@ -59,7 +59,9 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
       setError(
         locale === "ar"
           ? "موافقة ولي الأمر مطلوبة لتسجيل القاصرين."
-          : "Guardian consent is required to register a minor."
+          : locale === "tr"
+            ? "Reşit olmayanların kaydı için veli onayı gereklidir."
+            : "Guardian consent is required to register a minor."
       );
       return;
     }
@@ -79,18 +81,31 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
             form.notes && `ملاحظات: ${form.notes}`,
             isMinor && `موافقة ولي الأمر: نعم`,
           ]
-        : [
-            "New registration request — Salihy Academy",
-            `Name: ${form.name}`,
-            `Age: ${form.age}`,
-            `Gender: ${form.gender}`,
-            `Phone: ${form.phone}`,
-            `Program: ${programLabel ? t(locale, programLabel.title) : form.program}`,
-            form.level && `Level: ${form.level}`,
-            form.preferredTime && `Preferred time: ${form.preferredTime}`,
-            form.notes && `Notes: ${form.notes}`,
-            isMinor && `Guardian consent: yes`,
-          ];
+        : locale === "tr"
+          ? [
+              "Yeni kayıt talebi — Salihy Akademisi",
+              `Ad Soyad: ${form.name}`,
+              `Yaş: ${form.age}`,
+              `Cinsiyet: ${form.gender}`,
+              `Telefon: ${form.phone}`,
+              `Program: ${programLabel ? t(locale, programLabel.title) : form.program}`,
+              form.level && `Seviye: ${form.level}`,
+              form.preferredTime && `Tercih edilen saat: ${form.preferredTime}`,
+              form.notes && `Notlar: ${form.notes}`,
+              isMinor && `Veli onayı: evet`,
+            ]
+          : [
+              "New registration request — Salihy Academy",
+              `Name: ${form.name}`,
+              `Age: ${form.age}`,
+              `Gender: ${form.gender}`,
+              `Phone: ${form.phone}`,
+              `Program: ${programLabel ? t(locale, programLabel.title) : form.program}`,
+              form.level && `Level: ${form.level}`,
+              form.preferredTime && `Preferred time: ${form.preferredTime}`,
+              form.notes && `Notes: ${form.notes}`,
+              isMinor && `Guardian consent: yes`,
+            ];
 
     const message = lines.filter(Boolean).join("\n");
     setSubmitted(message);
@@ -111,7 +126,7 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
             </ExternalButtonLink>
           ) : (
             <ExternalButtonLink href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" variant="primary">
-              {locale === "ar" ? "تواصل عبر إنستغرام" : "Contact via Instagram"}
+              {locale === "ar" ? "تواصل عبر إنستغرام" : locale === "tr" ? "Instagram Üzerinden İletişime Geç" : "Contact via Instagram"}
             </ExternalButtonLink>
           )}
           <button
@@ -122,7 +137,7 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
             }}
             className="text-xs tracking-wide text-steel underline-offset-4 hover:text-bone hover:underline"
           >
-            {locale === "ar" ? "تسجيل آخر" : "Submit another"}
+            {locale === "ar" ? "تسجيل آخر" : locale === "tr" ? "Başka bir kayıt gönder" : "Submit another"}
           </button>
         </div>
       </div>
@@ -132,7 +147,7 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid gap-6 sm:grid-cols-2">
-        <Field label={locale === "ar" ? "الاسم الكامل" : "Full Name"} required>
+        <Field label={locale === "ar" ? "الاسم الكامل" : locale === "tr" ? "Ad Soyad" : "Full Name"} required>
           <input
             required
             value={form.name}
@@ -141,7 +156,7 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
             type="text"
           />
         </Field>
-        <Field label={locale === "ar" ? "العمر" : "Age"} required>
+        <Field label={locale === "ar" ? "العمر" : locale === "tr" ? "Yaş" : "Age"} required>
           <input
             required
             value={form.age}
@@ -152,16 +167,16 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
             max={80}
           />
         </Field>
-        <Field label={locale === "ar" ? "الجنس" : "Gender"} required>
+        <Field label={locale === "ar" ? "الجنس" : locale === "tr" ? "Cinsiyet" : "Gender"} required>
           <select required value={form.gender} onChange={(e) => update("gender", e.target.value)} className={inputField}>
             <option value="" disabled>
-              {locale === "ar" ? "اختر" : "Select"}
+              {locale === "ar" ? "اختر" : locale === "tr" ? "Seçin" : "Select"}
             </option>
-            <option value={locale === "ar" ? "ذكر" : "Male"}>{locale === "ar" ? "ذكر" : "Male"}</option>
-            <option value={locale === "ar" ? "أنثى" : "Female"}>{locale === "ar" ? "أنثى" : "Female"}</option>
+            <option value={locale === "ar" ? "ذكر" : locale === "tr" ? "Erkek" : "Male"}>{locale === "ar" ? "ذكر" : locale === "tr" ? "Erkek" : "Male"}</option>
+            <option value={locale === "ar" ? "أنثى" : locale === "tr" ? "Kadın" : "Female"}>{locale === "ar" ? "أنثى" : locale === "tr" ? "Kadın" : "Female"}</option>
           </select>
         </Field>
-        <Field label={locale === "ar" ? "رقم الهاتف" : "Phone Number"} required>
+        <Field label={locale === "ar" ? "رقم الهاتف" : locale === "tr" ? "Telefon Numarası" : "Phone Number"} required>
           <input
             required
             value={form.phone}
@@ -170,10 +185,10 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
             type="tel"
           />
         </Field>
-        <Field label={locale === "ar" ? "البرنامج المطلوب" : "Requested Program"} required>
+        <Field label={locale === "ar" ? "البرنامج المطلوب" : locale === "tr" ? "İstenen Program" : "Requested Program"} required>
           <select required value={form.program} onChange={(e) => update("program", e.target.value)} className={inputField}>
             <option value="" disabled>
-              {locale === "ar" ? "اختر برنامجًا" : "Choose a program"}
+              {locale === "ar" ? "اختر برنامجًا" : locale === "tr" ? "Bir program seçin" : "Choose a program"}
             </option>
             {programs
               .filter((p) => !p.isInformational)
@@ -184,26 +199,26 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
               ))}
           </select>
         </Field>
-        <Field label={locale === "ar" ? "مستوى الخبرة" : "Experience Level"}>
+        <Field label={locale === "ar" ? "مستوى الخبرة" : locale === "tr" ? "Deneyim Seviyesi" : "Experience Level"}>
           <select value={form.level} onChange={(e) => update("level", e.target.value)} className={inputField}>
-            <option value="">{locale === "ar" ? "غير محدد" : "Not specified"}</option>
-            <option value={locale === "ar" ? "مبتدئ" : "Beginner"}>{locale === "ar" ? "مبتدئ" : "Beginner"}</option>
-            <option value={locale === "ar" ? "متوسط" : "Intermediate"}>{locale === "ar" ? "متوسط" : "Intermediate"}</option>
-            <option value={locale === "ar" ? "متقدم" : "Advanced"}>{locale === "ar" ? "متقدم" : "Advanced"}</option>
+            <option value="">{locale === "ar" ? "غير محدد" : locale === "tr" ? "Belirtilmedi" : "Not specified"}</option>
+            <option value={locale === "ar" ? "مبتدئ" : locale === "tr" ? "Başlangıç" : "Beginner"}>{locale === "ar" ? "مبتدئ" : locale === "tr" ? "Başlangıç" : "Beginner"}</option>
+            <option value={locale === "ar" ? "متوسط" : locale === "tr" ? "Orta" : "Intermediate"}>{locale === "ar" ? "متوسط" : locale === "tr" ? "Orta" : "Intermediate"}</option>
+            <option value={locale === "ar" ? "متقدم" : locale === "tr" ? "İleri" : "Advanced"}>{locale === "ar" ? "متقدم" : locale === "tr" ? "İleri" : "Advanced"}</option>
           </select>
         </Field>
-        <Field label={locale === "ar" ? "الوقت المفضل" : "Preferred Time"}>
+        <Field label={locale === "ar" ? "الوقت المفضل" : locale === "tr" ? "Tercih Edilen Saat" : "Preferred Time"}>
           <input
             value={form.preferredTime}
             onChange={(e) => update("preferredTime", e.target.value)}
             className={inputField}
             type="text"
-            placeholder={locale === "ar" ? "مثال: مساءً" : "e.g. Evening"}
+            placeholder={locale === "ar" ? "مثال: مساءً" : locale === "tr" ? "Örn: Akşam" : "e.g. Evening"}
           />
         </Field>
       </div>
 
-      <Field label={locale === "ar" ? "ملاحظات" : "Notes"}>
+      <Field label={locale === "ar" ? "ملاحظات" : locale === "tr" ? "Notlar" : "Notes"}>
         <textarea
           value={form.notes}
           onChange={(e) => update("notes", e.target.value)}
@@ -222,7 +237,9 @@ export function RegistrationForm({ locale }: { locale: Locale }) {
           />
           {locale === "ar"
             ? "أؤكد بصفتي ولي أمر موافقتي على تسجيل القاصر في برنامج الأكاديمية."
-            : "As the guardian, I confirm my consent to register this minor in the academy's program."}
+            : locale === "tr"
+              ? "Veli olarak, bu reşit olmayan kişinin akademi programına kaydına onay verdiğimi teyit ederim."
+              : "As the guardian, I confirm my consent to register this minor in the academy's program."}
         </label>
       )}
 

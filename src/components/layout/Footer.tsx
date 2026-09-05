@@ -45,7 +45,7 @@ export function Footer({ locale }: { locale: Locale }) {
               </a>
               {WHATSAPP_ENABLED && (
                 <a
-                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : "Hello")}
+                  href={buildWhatsappLink(locale === "ar" ? "السلام عليكم" : locale === "tr" ? "Merhaba" : "Hello")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-bone"
@@ -59,7 +59,7 @@ export function Footer({ locale }: { locale: Locale }) {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-bone/10 pt-6 text-xs text-steel/70 sm:flex-row sm:items-center sm:justify-between">
           <p>{t(locale, academyName)}</p>
-          <p>© {new Date().getFullYear()} — {locale === "ar" ? "جميع الحقوق محفوظة" : "All rights reserved"}</p>
+          <p>© {new Date().getFullYear()} — {locale === "ar" ? "جميع الحقوق محفوظة" : locale === "tr" ? "Tüm hakları saklıdır" : "All rights reserved"}</p>
         </div>
       </div>
     </footer>

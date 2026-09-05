@@ -13,7 +13,9 @@ export function CtaChapter({ locale }: { locale: Locale }) {
   const message =
     locale === "ar"
       ? "السلام عليكم، أود حجز حصة تجريبية في أكاديمية صالحي."
-      : "Hello, I'd like to book a trial class at Salihy Academy.";
+      : locale === "tr"
+        ? "Merhaba, Salihy Akademisi'nde bir deneme dersi ayırtmak istiyorum."
+        : "Hello, I'd like to book a trial class at Salihy Academy.";
 
   return (
     <section className="relative overflow-hidden bg-obsidian/92 py-28 sm:py-36">
@@ -23,9 +25,9 @@ export function CtaChapter({ locale }: { locale: Locale }) {
 
       <div className="relative z-10 mx-auto max-w-2xl px-6 text-center sm:px-10">
         <Reveal>
-          <p className="font-heading text-xs tracking-[0.4em] text-steel">09 — {locale === "ar" ? "ابدأ الآن" : "BEGIN"}</p>
+          <p className="font-heading text-xs tracking-[0.4em] text-steel">09 — {locale === "ar" ? "ابدأ الآن" : locale === "tr" ? "BAŞLA" : "BEGIN"}</p>
           <h2 className="font-heading text-balance mt-6 text-3xl leading-tight text-bone sm:text-4xl md:text-5xl">
-            {locale === "ar" ? "كل بطل بدأ بخطوة أولى." : "Every champion started with a first step."}
+            {locale === "ar" ? "كل بطل بدأ بخطوة أولى." : locale === "tr" ? "Her şampiyon ilk adımla başladı." : "Every champion started with a first step."}
           </h2>
         </Reveal>
 

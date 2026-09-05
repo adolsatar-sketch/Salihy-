@@ -44,14 +44,16 @@ body {
   color: var(--fg);
   overflow-x: hidden;
   min-height: 100dvh;
+  /* Default is the Latin body font — correct as-is for English AND
+     Turkish (both Latin-script), with only Arabic overriding below.
+     Keeping this unscoped (rather than a separate html[lang="en"] and
+     html[lang="tr"] rule) means any future Latin-script locale inherits
+     the right font automatically. */
+  font-family: var(--font-body-en), "Inter", sans-serif;
 }
 
 html[lang="ar"] body {
   font-family: var(--font-body-ar), "IBM Plex Sans Arabic", sans-serif;
-}
-
-html[lang="en"] body {
-  font-family: var(--font-body-en), "Inter", sans-serif;
 }
 
 .font-heading {
@@ -163,6 +165,58 @@ button {
   html.has-custom-cursor,
   html.has-custom-cursor * {
     cursor: none !important;
+  }
+}
+
+/* Position is written every frame straight from the raw pointer event as
+   `transform: translate3d()` on this fixed-at-(0,0) root — never
+   top/left (which forces layout) and never eased/sprung (which is exactly
+   the lag this replaced). will-change keeps it on its own compositor
+   layer so it never touches scroll/transition frame budget. */
+.custom-cursor-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: transform;
+  transition: opacity 0.15s ease;
+}
+.custom-cursor-mark {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 24px;
+  height: 24px;
+  transform: scale(1);
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 1px 4px rgba(0, 0, 0, 0.5));
+}
+@keyframes cursor-click-glow-pulse {
+  0% {
+    width: 10px;
+    height: 10px;
+    opacity: 0.9;
+  }
+  100% {
+    width: 56px;
+    height: 56px;
+    opacity: 0;
+  }
+}
+.cursor-click-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  translate: -50% -50%;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(178, 15, 32, 0.55) 0%, rgba(178, 15, 32, 0) 70%);
+  animation: cursor-click-glow-pulse 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (pointer: coarse), (hover: none) {
+  .custom-cursor-root {
+    display: none !important;
   }
 }
 

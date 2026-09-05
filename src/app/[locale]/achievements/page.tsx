@@ -11,11 +11,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "الإنجازات | أكاديمية صالحي" : "Achievements | Salihy Academy";
+  const title = locale === "ar" ? "الإنجازات | أكاديمية صالحي" : locale === "tr" ? "Başarılar | Salihy Akademisi" : "Achievements | Salihy Academy";
   const description =
     locale === "ar"
       ? "لحظات من مشاركات أكاديمية صالحي في البطولات."
-      : "Moments from Salihy Academy's tournament appearances.";
+      : locale === "tr"
+        ? "Salihy Akademisi'nin turnuva katılımlarından anlar."
+        : "Moments from Salihy Academy's tournament appearances.";
   return {
     title,
     description,
@@ -36,8 +38,8 @@ export default async function AchievementsPage({
     <>
       <PageHero
         number="03"
-        eyebrow={locale === "ar" ? "الإنجازات" : "ACHIEVEMENTS"}
-        title={locale === "ar" ? "لحظات من البطولات" : "Moments from the Tournaments"}
+        eyebrow={locale === "ar" ? "الإنجازات" : locale === "tr" ? "BAŞARILAR" : "ACHIEVEMENTS"}
+        title={locale === "ar" ? "لحظات من البطولات" : locale === "tr" ? "Turnuvalardan Anlar" : "Moments from the Tournaments"}
       />
 
       <AchievementsExplorer locale={locale} />

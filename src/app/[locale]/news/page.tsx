@@ -13,8 +13,8 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "الأخبار | أكاديمية صالحي" : "News | Salihy Academy";
-  const description = locale === "ar" ? "آخر أخبار أكاديمية صالحي." : "The latest news from Salihy Academy.";
+  const title = locale === "ar" ? "الأخبار | أكاديمية صالحي" : locale === "tr" ? "Haberler | Salihy Akademisi" : "News | Salihy Academy";
+  const description = locale === "ar" ? "آخر أخبار أكاديمية صالحي." : locale === "tr" ? "Salihy Akademisi'nden en son haberler." : "The latest news from Salihy Academy.";
   return {
     title,
     description,
@@ -33,7 +33,7 @@ export default async function NewsPage({
 
   return (
     <>
-      <PageHero number="09" eyebrow={locale === "ar" ? "الأخبار" : "NEWS"} title={locale === "ar" ? "آخر أخبار الأكاديمية" : "The Academy's Latest"} />
+      <PageHero number="09" eyebrow={locale === "ar" ? "الأخبار" : locale === "tr" ? "HABERLER" : "NEWS"} title={locale === "ar" ? "آخر أخبار الأكاديمية" : locale === "tr" ? "Akademiden Son Haberler" : "The Academy's Latest"} />
 
       {newsPosts.length > 0 && (
         <section className="relative bg-obsidian/92 py-16 sm:py-24">

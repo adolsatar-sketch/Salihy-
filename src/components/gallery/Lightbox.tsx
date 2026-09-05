@@ -137,7 +137,7 @@ export function Lightbox({
               e.stopPropagation();
               goPrev();
             }}
-            aria-label={locale === "ar" ? "السابق" : "Previous"}
+            aria-label={locale === "ar" ? "السابق" : locale === "tr" ? "Önceki" : "Previous"}
             className="absolute left-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-bone/10 text-bone hover:bg-active sm:flex"
           >
             ‹
@@ -148,7 +148,7 @@ export function Lightbox({
               e.stopPropagation();
               goNext();
             }}
-            aria-label={locale === "ar" ? "التالي" : "Next"}
+            aria-label={locale === "ar" ? "التالي" : locale === "tr" ? "Sonraki" : "Next"}
             className="absolute right-2 top-1/2 hidden h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-bone/10 text-bone hover:bg-active sm:flex"
           >
             ›

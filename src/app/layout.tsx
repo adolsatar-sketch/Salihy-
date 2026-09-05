@@ -20,8 +20,8 @@ try {
 }
 try {
   var seg = window.location.pathname.split('/')[1];
-  if (seg === 'en') {
-    document.documentElement.lang = 'en';
+  if (seg === 'en' || seg === 'tr') {
+    document.documentElement.lang = seg;
     document.documentElement.dir = 'ltr';
   }
 } catch (e) {}

@@ -19,8 +19,8 @@ export type VideoItem = {
 export const videos: VideoItem[] = [];
 
 export const videoCategoryLabels: Record<VideoCategory, Bi> = {
-  fights: { ar: "النزالات", en: "Fights" },
-  tournaments: { ar: "البطولات", en: "Tournaments" },
-  training: { ar: "التدريب", en: "Training" },
-  behind: { ar: "خلف الكواليس", en: "Behind the Scenes" },
+  fights: { ar: "النزالات", en: "Fights", tr: "Mücadeleler" },
+  tournaments: { ar: "البطولات", en: "Tournaments", tr: "Turnuvalar" },
+  training: { ar: "التدريب", en: "Training", tr: "Antrenman" },
+  behind: { ar: "خلف الكواليس", en: "Behind the Scenes", tr: "Perde Arkası" },
 };

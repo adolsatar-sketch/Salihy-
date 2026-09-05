@@ -14,15 +14,18 @@ export const ibmPlexArabic = IBM_Plex_Sans_Arabic({
   display: "swap",
 });
 
+// latin-ext is required for Turkish characters (ç ğ ı İ ö ş ü) — without
+// it, next/font only fetches Basic Latin glyphs and Turkish text silently
+// falls back to a system font mid-word.
 export const oswald = Oswald({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-oswald",
   display: "swap",
 });
 
 export const inter = Inter({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600"],
   variable: "--font-inter",
   display: "swap",

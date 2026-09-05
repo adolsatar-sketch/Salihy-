@@ -14,11 +14,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "البرامج التدريبية | أكاديمية صالحي" : "Training Programs | Salihy Academy";
+  const title = locale === "ar" ? "البرامج التدريبية | أكاديمية صالحي" : locale === "tr" ? "Antrenman Programları | Salihy Akademisi" : "Training Programs | Salihy Academy";
   const description =
     locale === "ar"
       ? "برامج أكاديمية صالحي لكل الأعمار: الأطفال، الناشئون، البالغون، النساء، فريق البطولات، والمزيد."
-      : "Salihy Academy's programs for every age: kids, youth, adults, women, the competition team, and more.";
+      : locale === "tr"
+        ? "Salihy Akademisi'nin her yaş için programları: çocuklar, gençler, yetişkinler, kadınlar, turnuva takımı ve daha fazlası."
+        : "Salihy Academy's programs for every age: kids, youth, adults, women, the competition team, and more.";
   return {
     title,
     description,
@@ -39,8 +41,8 @@ export default async function ProgramsPage({
     <>
       <PageHero
         number="05"
-        eyebrow={locale === "ar" ? "البرامج" : "PROGRAMS"}
-        title={locale === "ar" ? "مسار لكل مرحلة عمرية" : "A Path for Every Stage of Life"}
+        eyebrow={locale === "ar" ? "البرامج" : locale === "tr" ? "PROGRAMLAR" : "PROGRAMS"}
+        title={locale === "ar" ? "مسار لكل مرحلة عمرية" : locale === "tr" ? "Her Yaş Dönemi İçin Bir Yol" : "A Path for Every Stage of Life"}
       />
 
       <section className="relative bg-obsidian/92 pb-28">

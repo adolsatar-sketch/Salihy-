@@ -14,4 +14,5 @@ export const weeklySlots: ScheduleSlot[] = [];
 export const scheduleNote: Bi = {
   ar: "تُحدَّد مواعيد الحصص بحسب الفئة العمرية والمستوى مع المدرب عند التسجيل.",
   en: "Class times are confirmed with the coach based on age group and level upon registration.",
+  tr: "Ders saatleri, kayıt sırasında yaş grubu ve seviyeye göre antrenörle birlikte belirlenir.",
 };

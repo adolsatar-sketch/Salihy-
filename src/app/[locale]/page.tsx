@@ -23,11 +23,15 @@ export async function generateMetadata({
   const title =
     locale === "ar"
       ? "أكاديمية صالحي للكيوكوشنكاي — بغداد | من ساحة النزال إلى صناعة أبطال الغد"
-      : "Salihy Kyokushin Academy — Baghdad | From the Fight to the Future of Champions";
+      : locale === "tr"
+        ? "Salihy Kyokushin Akademisi — Bağdat | Mücadeleden Şampiyonların Geleceğine"
+        : "Salihy Kyokushin Academy — Baghdad | From the Fight to the Future of Champions";
   const description =
     locale === "ar"
       ? "أكاديمية كيوكوشنكاي كاراتيه في الصليخ، بغداد. تدريب احترافي للأطفال والشباب والرجال والنساء، ومسار حقيقي من أول حصة إلى منصات التتويج المحلية والدولية."
-      : "A Kyokushin karate academy in Al-Sulaikh, Baghdad. Professional training for kids, youth, men and women, with a real path from a first class to local and international podiums.";
+      : locale === "tr"
+        ? "Bağdat, Al-Sulaikh'te bir Kyokushin karate akademisi. Çocuklar, gençler, erkekler ve kadınlar için profesyonel antrenman; ilk dersten yerel ve uluslararası podyumlara uzanan gerçek bir yol."
+        : "A Kyokushin karate academy in Al-Sulaikh, Baghdad. Professional training for kids, youth, men and women, with a real path from a first class to local and international podiums.";
 
   return {
     title,

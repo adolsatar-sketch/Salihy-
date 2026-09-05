@@ -11,11 +11,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "التسجيل | أكاديمية صالحي" : "Registration | Salihy Academy";
+  const title = locale === "ar" ? "التسجيل | أكاديمية صالحي" : locale === "tr" ? "Kayıt | Salihy Akademisi" : "Registration | Salihy Academy";
   const description =
     locale === "ar"
       ? "سجّل الآن في أكاديمية صالحي للكيوكوشنكاي واحجز حصتك التجريبية."
-      : "Register now at Salihy Kyokushin Academy and book your trial class.";
+      : locale === "tr"
+        ? "Şimdi Salihy Kyokushin Akademisi'ne kaydolun ve deneme dersinizi ayırtın."
+        : "Register now at Salihy Kyokushin Academy and book your trial class.";
   return {
     title,
     description,
@@ -36,8 +38,8 @@ export default async function RegistrationPage({
     <>
       <PageHero
         number="11"
-        eyebrow={locale === "ar" ? "التسجيل" : "REGISTRATION"}
-        title={locale === "ar" ? "كل بطل بدأ بخطوة أولى" : "Every Champion Started With a First Step"}
+        eyebrow={locale === "ar" ? "التسجيل" : locale === "tr" ? "KAYIT" : "REGISTRATION"}
+        title={locale === "ar" ? "كل بطل بدأ بخطوة أولى" : locale === "tr" ? "Her Şampiyon İlk Adımla Başladı" : "Every Champion Started With a First Step"}
       />
 
       <section className="relative bg-obsidian/92 py-16 sm:py-24">

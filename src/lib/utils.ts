@@ -1,9 +1,10 @@
-import type { Locale } from "@/i18n/config";
+import { locales, type Locale } from "@/i18n/config";
 import { SITE_URL } from "@/data/site";
 
 export type Bi = {
   ar: string;
   en: string;
+  tr: string;
 };
 
 export function t(locale: Locale, value: Bi): string {
@@ -28,9 +29,6 @@ export function swapLocaleInPath(pathname: string, target: Locale): string {
 export function buildAlternates(locale: Locale, path: string) {
   return {
     canonical: `${SITE_URL}${localePath(locale, path)}`,
-    languages: {
-      ar: `${SITE_URL}${localePath("ar", path)}`,
-      en: `${SITE_URL}${localePath("en", path)}`,
-    },
+    languages: Object.fromEntries(locales.map((l) => [l, `${SITE_URL}${localePath(l, path)}`])),
   };
 }

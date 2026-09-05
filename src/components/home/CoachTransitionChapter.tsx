@@ -11,7 +11,7 @@ export function CoachTransitionChapter({ locale }: { locale: Locale }) {
   return (
     <section className="relative overflow-hidden bg-obsidian/92 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
-        <SectionLabel number="04" title={locale === "ar" ? "من لاعب إلى مدرب" : "FROM FIGHTER TO COACH"} />
+        <SectionLabel number="04" title={locale === "ar" ? "من لاعب إلى مدرب" : locale === "tr" ? "SPORCUDAN ANTRENÖRE" : "FROM FIGHTER TO COACH"} />
 
         <div className="mt-10 grid gap-10 md:grid-cols-2 md:items-center md:gap-16">
           <Reveal>
@@ -21,6 +21,12 @@ export function CoachTransitionChapter({ locale }: { locale: Locale }) {
                   الإنجاز الحقيقي ليس الكأس الذي تحمله…
                   <br />
                   <span className="text-active">بل البطل الذي تساعده على الوصول إليه.</span>
+                </>
+              ) : locale === "tr" ? (
+                <>
+                  Gerçek başarı elinde tuttuğun kupa değil…
+                  <br />
+                  <span className="text-active">ona ulaşmasına yardım ettiğin şampiyondur.</span>
                 </>
               ) : (
                 <>
@@ -33,11 +39,13 @@ export function CoachTransitionChapter({ locale }: { locale: Locale }) {
             <p className="mt-6 max-w-md text-sm leading-relaxed text-steel sm:text-base">
               {locale === "ar"
                 ? "من نزالاته الشخصية إلى منصات تتويج أطفاله ولاعبيه، تحوّلت سنوات الخبرة إلى منهج تدريبي كامل."
-                : "From his own fights to the podiums of his students, years of experience became a complete training method."}
+                : locale === "tr"
+                  ? "Kendi mücadelelerinden öğrencilerinin podyumlarına uzanan yıllar, tam bir antrenman yöntemine dönüştü."
+                  : "From his own fights to the podiums of his students, years of experience became a complete training method."}
             </p>
             <div className="mt-8">
               <ButtonLink href={localePath(locale, "/coach")} variant="outline">
-                {locale === "ar" ? "قصة المدرب الكاملة" : "The Coach's Full Story"}
+                {locale === "ar" ? "قصة المدرب الكاملة" : locale === "tr" ? "Antrenörün Tüm Hikayesi" : "The Coach's Full Story"}
               </ButtonLink>
             </div>
           </Reveal>
@@ -50,7 +58,9 @@ export function CoachTransitionChapter({ locale }: { locale: Locale }) {
                   alt={
                     locale === "ar"
                       ? "أربعة لاعبين من بينهم طفل يقفون على منصة التتويج حاملين كؤوسًا وميداليات"
-                      : "Four athletes, including a child, standing on the podium holding trophies and medals"
+                      : locale === "tr"
+                        ? "Aralarında bir çocuğun da bulunduğu dört sporcu, podyumda kupalar ve madalyalar tutuyor"
+                        : "Four athletes, including a child, standing on the podium holding trophies and medals"
                   }
                   fill
                   sizes="(min-width: 768px) 50vw, 100vw"
@@ -65,7 +75,9 @@ export function CoachTransitionChapter({ locale }: { locale: Locale }) {
                   alt={
                     locale === "ar"
                       ? "مدرب يقف بجانب لاعب يحمل كأس بطولة"
-                      : "A coach standing beside an athlete holding a championship trophy"
+                      : locale === "tr"
+                        ? "Şampiyonluk kupası tutan bir sporcunun yanında duran antrenör"
+                        : "A coach standing beside an athlete holding a championship trophy"
                   }
                   fill
                   sizes="(min-width: 768px) 25vw, 50vw"
@@ -80,7 +92,9 @@ export function CoachTransitionChapter({ locale }: { locale: Locale }) {
                   alt={
                     locale === "ar"
                       ? "أربعة لاعبين يقفون بجانب كؤوس المراكز الأربعة الأولى"
-                      : "Four athletes standing beside four podium-place trophies"
+                      : locale === "tr"
+                        ? "Dört podyum derecesi kupasının yanında duran dört sporcu"
+                        : "Four athletes standing beside four podium-place trophies"
                   }
                   fill
                   sizes="(min-width: 768px) 25vw, 50vw"

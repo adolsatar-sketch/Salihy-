@@ -16,6 +16,7 @@ export const coachProfile: {
   portraitAlt: {
     ar: "مدرب أكاديمية صالحي يقف بزي الكيوكوشنكاي إلى جانب أحد اللاعبين حاملًا كأس بطولة",
     en: "Salihy Academy coach standing in Kyokushin gi beside an athlete holding a tournament trophy",
+    tr: "Salihy Akademisi antrenörü, Kyokushin gi'si içinde bir turnuva kupası tutan bir sporcunun yanında duruyor",
   },
 };
 

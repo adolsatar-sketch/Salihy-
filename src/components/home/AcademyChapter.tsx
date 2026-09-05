@@ -12,17 +12,17 @@ export function AcademyChapter({ locale }: { locale: Locale }) {
   return (
     <section className="relative bg-charcoal/92 py-24 sm:py-32">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
-        <SectionLabel number="05" title={locale === "ar" ? "الأكاديمية" : "THE ACADEMY"} />
+        <SectionLabel number="05" title={locale === "ar" ? "الأكاديمية" : locale === "tr" ? "AKADEMİ" : "THE ACADEMY"} />
         <div className="mt-8 grid gap-10 md:grid-cols-[1fr_1fr] md:gap-16">
           <Reveal>
             <h2 className="font-heading text-balance text-3xl leading-tight text-bone sm:text-4xl md:text-5xl">
-              {locale === "ar" ? "بيت حقيقي لصناعة الأبطال" : "A real home for building champions"}
+              {locale === "ar" ? "بيت حقيقي لصناعة الأبطال" : locale === "tr" ? "Şampiyonlar yetiştiren gerçek bir yuva" : "A real home for building champions"}
             </h2>
             <p className="mt-6 max-w-md text-sm leading-relaxed text-steel sm:text-base">{t(locale, shortDescription)}</p>
             <p className="mt-4 text-xs tracking-wide text-steel/80">{t(locale, address)}</p>
             <div className="mt-8">
               <ButtonLink href={localePath(locale, "/academy")} variant="outline">
-                {locale === "ar" ? "تعرف على الأكاديمية" : "Discover the Academy"}
+                {locale === "ar" ? "تعرف على الأكاديمية" : locale === "tr" ? "Akademiyi Keşfet" : "Discover the Academy"}
               </ButtonLink>
             </div>
           </Reveal>

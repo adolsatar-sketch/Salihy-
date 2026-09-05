@@ -12,11 +12,13 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale: Locale = isLocale(rawLocale) ? rawLocale : defaultLocale;
-  const title = locale === "ar" ? "المسيرة — الرحلة الكاملة | أكاديمية صالحي" : "Legacy — The Full Journey | Salihy Academy";
+  const title = locale === "ar" ? "المسيرة — الرحلة الكاملة | أكاديمية صالحي" : locale === "tr" ? "Miras — Tüm Yolculuk | Salihy Akademisi" : "Legacy — The Full Journey | Salihy Academy";
   const description =
     locale === "ar"
       ? "من أول حصة تدريب إلى تأسيس أكاديمية صالحي — الجدول الزمني الكامل للمسيرة."
-      : "From the first training session to founding Salihy Academy — the complete timeline of the journey.";
+      : locale === "tr"
+        ? "İlk antrenman seansından Salihy Akademisi'nin kuruluşuna — yolculuğun tüm zaman çizelgesi."
+        : "From the first training session to founding Salihy Academy — the complete timeline of the journey.";
   return {
     title,
     description,
@@ -37,8 +39,8 @@ export default async function LegacyPage({
     <>
       <PageHero
         number="02"
-        eyebrow={locale === "ar" ? "المسيرة" : "LEGACY"}
-        title={locale === "ar" ? "من الخطوة الأولى إلى الأكاديمية" : "From the First Step to the Academy"}
+        eyebrow={locale === "ar" ? "المسيرة" : locale === "tr" ? "MİRAS" : "LEGACY"}
+        title={locale === "ar" ? "من الخطوة الأولى إلى الأكاديمية" : locale === "tr" ? "İlk Adımdan Akademiye" : "From the First Step to the Academy"}
       />
 
       {careerTimeline.length > 0 && (

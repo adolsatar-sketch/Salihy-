@@ -2,31 +2,26 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
-import { useReducedMotionSafe } from "@/lib/useReducedMotionSafe";
 
 const INTERACTIVE_SELECTOR = 'a, button, input, textarea, select, [role="button"], [data-cursor-hover]';
 
 /**
  * Replaces the system pointer with the official logo mark on devices that
- * actually have one (fine pointer + hover). Touch devices never mount
- * this — there is no mouse cursor to replace there.
+ * actually have one (fine pointer + hover). Deliberately no spring/lerp on
+ * position: the cursor's job is to feel like an extension of the real
+ * pointer, not a trailing effect, so position is written directly from the
+ * raw pointer event, coalesced to one write per animation frame via a ref
+ * (never React state) and `transform: translate3d()` (never top/left, which
+ * would trigger layout). Touch devices never mount this — there is no
+ * mouse cursor to replace there.
  */
 export function CustomCursor() {
   const [enabled, setEnabled] = useState(false);
-  const [ready, setReady] = useState(false);
-  const [hovering, setHovering] = useState(false);
-  const [pressed, setPressed] = useState(false);
-  const [visible, setVisible] = useState(true);
-  const reduceMotion = useReducedMotionSafe();
-
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const springConfig = reduceMotion ? { stiffness: 1000, damping: 100 } : { stiffness: 420, damping: 34, mass: 0.4 };
-  const springX = useSpring(x, springConfig);
-  const springY = useSpring(y, springConfig);
-
-  const hoverDepth = useRef(0);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const markRef = useRef<HTMLDivElement>(null);
+  const pos = useRef({ x: -100, y: -100 });
+  const raf = useRef(0);
+  const ready = useRef(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -43,30 +38,62 @@ export function CustomCursor() {
 
   useEffect(() => {
     if (!enabled) return;
+    const root = rootRef.current;
+    const mark = markRef.current;
+    if (!root || !mark) return;
+
+    let hoverDepth = 0;
+    let pressed = false;
+
+    const write = () => {
+      raf.current = 0;
+      root.style.transform = `translate3d(${pos.current.x}px, ${pos.current.y}px, 0)`;
+    };
+    const queueWrite = () => {
+      if (!raf.current) raf.current = requestAnimationFrame(write);
+    };
 
     const onMove = (e: PointerEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-      if (!ready) setReady(true);
+      pos.current.x = e.clientX;
+      pos.current.y = e.clientY;
+      queueWrite();
+      if (!ready.current) {
+        ready.current = true;
+        root.style.opacity = "1";
+      }
     };
     const onOver = (e: PointerEvent) => {
       const target = e.target as Element | null;
       if (target?.closest(INTERACTIVE_SELECTOR)) {
-        hoverDepth.current += 1;
-        setHovering(true);
+        hoverDepth += 1;
+        mark.style.transform = "scale(1.4)";
       }
     };
     const onOut = (e: PointerEvent) => {
       const target = e.target as Element | null;
       if (target?.closest(INTERACTIVE_SELECTOR)) {
-        hoverDepth.current = Math.max(0, hoverDepth.current - 1);
-        if (hoverDepth.current === 0) setHovering(false);
+        hoverDepth = Math.max(0, hoverDepth - 1);
+        if (hoverDepth === 0) mark.style.transform = pressed ? "scale(0.8)" : "scale(1)";
       }
     };
-    const onDown = () => setPressed(true);
-    const onUp = () => setPressed(false);
-    const onLeave = () => setVisible(false);
-    const onEnter = () => setVisible(true);
+    const onDown = () => {
+      pressed = true;
+      mark.style.transform = "scale(0.8)";
+      const glow = document.createElement("span");
+      glow.className = "cursor-click-glow";
+      root.appendChild(glow);
+      glow.addEventListener("animationend", () => glow.remove());
+    };
+    const onUp = () => {
+      pressed = false;
+      mark.style.transform = hoverDepth > 0 ? "scale(1.4)" : "scale(1)";
+    };
+    const onLeave = () => {
+      root.style.opacity = "0";
+    };
+    const onEnter = () => {
+      root.style.opacity = "1";
+    };
 
     window.addEventListener("pointermove", onMove, { passive: true });
     window.addEventListener("pointerover", onOver, { passive: true });
@@ -84,59 +111,19 @@ export function CustomCursor() {
       window.removeEventListener("pointerup", onUp);
       document.documentElement.removeEventListener("mouseleave", onLeave);
       document.documentElement.removeEventListener("mouseenter", onEnter);
+      if (raf.current) cancelAnimationFrame(raf.current);
+      raf.current = 0;
+      ready.current = false;
     };
-  }, [enabled, ready, x, y]);
+  }, [enabled]);
 
   if (!enabled) return null;
 
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[9999]"
-      style={{ opacity: ready && visible ? 1 : 0, transition: "opacity 0.25s ease" }}
-    >
-      <motion.div className="absolute top-0 left-0 will-change-transform" style={{ x: springX, y: springY, translateX: "-50%", translateY: "-50%" }}>
-        {/* Glow burst on click */}
-        <AnimatePresence>
-          {pressed && (
-            <motion.span
-              key="burst"
-              className="absolute top-1/2 left-1/2 rounded-full"
-              style={{
-                translateX: "-50%",
-                translateY: "-50%",
-                background: "radial-gradient(circle, rgba(178,15,32,0.55) 0%, rgba(178,15,32,0) 70%)",
-              }}
-              initial={{ width: 10, height: 10, opacity: 0.9 }}
-              animate={{ width: 64, height: 64, opacity: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            />
-          )}
-        </AnimatePresence>
-
-        {/* Ambient hover glow */}
-        <motion.span
-          className="absolute top-1/2 left-1/2 rounded-full"
-          style={{
-            translateX: "-50%",
-            translateY: "-50%",
-            background: "radial-gradient(circle, rgba(178,15,32,0.45) 0%, rgba(178,15,32,0) 72%)",
-          }}
-          animate={{ width: hovering ? 46 : 0, height: hovering ? 46 : 0, opacity: hovering ? 1 : 0 }}
-          transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-        />
-
-        {/* The mark itself */}
-        <motion.div
-          className="relative h-6 w-6"
-          style={{ filter: "drop-shadow(0 1px 4px rgba(0,0,0,0.5))" }}
-          animate={{ scale: pressed ? 0.8 : hovering ? 1.4 : 1 }}
-          transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <Image src="/assets/logo/logo-mark.png" alt="" fill sizes="24px" className="object-contain" />
-        </motion.div>
-      </motion.div>
+    <div ref={rootRef} className="custom-cursor-root" style={{ opacity: 0 }}>
+      <div ref={markRef} className="custom-cursor-mark">
+        <Image src="/assets/logo/logo-mark.png" alt="" fill sizes="24px" className="object-contain" />
+      </div>
     </div>
   );
 }
